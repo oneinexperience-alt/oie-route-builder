@@ -1,25 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>Plan your night | One In Experience</title>
-<link rel="icon" id="oie-favicon" href="https://oneinexperience.com/favicon.ico">
-<script>
-/* Favicon: "OI" monogram cut from the official One In Experience logo (white logo on brand wine). */
-(function(){
-  var LOGO="https://assets.zyrosite.com/fSZwg4JXkaVdJMhK/logo-v2---blanco-HVCxspzGuk9rdwDf.png";
-  var img=new Image(); img.crossOrigin="anonymous";
-  img.onload=function(){
-    try{
-      var size=64,c=document.createElement("canvas"); c.width=c.height=size;
-      var g=c.getContext("2d"); g.fillStyle="#401012";
-      if(g.roundRect){g.beginPath();g.roundRect(0,0,size,size,size*.18);g.fill();}else{g.fillRect(0,0,size,size);}
-      var y0=238,ch=562-238,parts=[[0,324],[1127,1268]],gap=60,tw=324+141+gap,pad=size*.14;
-      var s=Math.min((size-2*pad)/tw,(size-2*pad)/ch),x=(size-tw*s)/2,y=(size-ch*s)/2;
-      parts.forEach(function(p){var w=p[1]-p[0]+1; g.drawImage(img,p[0],y0,w,ch,x,y,w*s,ch*s); x+=w*s+gap*s;});
-      var l=document.getElementById("oie-favicon"); l.type="image/png"; l.href=c.toDataURL("image/png");
-    }catch(e){}
-  };
-  img.src=LOGO;
-})();
-</script>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#401012">
 <style>
 html,body{margin:0;background:#121212}
 .oie-site{font-family:'Poppins',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -182,6 +166,15 @@ font-family:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;background:v
 #oie-rb .surprise-cta small{color:#e6cfd0;font-size:13px}
 #oie-rb .surprise-cta .arr{flex:none;width:38px;height:38px;border-radius:50%;background:var(--wine2);display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff}
 #oie-rb .surprise-cta.inline{margin:18px 0 0}
+/* --- All products catalogue (embedded in Hostinger) --- */
+html.oie-cat-page .oie-hdr,html.oie-cat-page .oie-ftr,html.oie-cat-page .oie-mnav{display:none!important}
+html.oie-cat-page body{background:#1a1a1a}
+#oie-rb .cat-h{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}
+#oie-rb .cat-row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,260px);gap:16px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
+#oie-rb .cat-row .card{scroll-snap-align:start}
+#oie-rb .cat-row a.btn-w{text-decoration:none}
+#oie-rb.oie-cat{padding:0 0 8px;min-height:0;background:#1a1a1a}
+#oie-rb.oie-cat .card{background:#232020}
 /* --- Nightlife: VIP table price + music --- */
 #oie-rb .vip{color:#f3d9a4;font-size:12.5px;font-weight:600;margin-top:6px}
 #oie-rb .music{color:#cfc6bd;font-size:12.5px;margin-top:4px}
@@ -225,13 +218,12 @@ window.OIE_CONFIG = {
   whatsapp: "34603025078",   // concierge WhatsApp (digits only, with country code)
   webhookUrl: "",            // optional extra webhook (Make / Zapier). Brevo now runs through Netlify Forms + function.
   formUrl: "https://storied-sorbet-3f66d4.netlify.app/", // Netlify Forms endpoint (form "oie-booking")
-  specialFee: 50,            // "Make it special" fee, USD (provisional)
+  specialFee: 0,             // occasions are arranged by the concierge, no fee ("The Table you deserve" removed)
   boxVipPrice: 1100,         // fallback VIP table price, USD
   vipPrices: {2:500, 3:800, 4:1100}, // VIP table price by category: $$ / $$$ / $$$$ (USD)
   surpriseUrl: "https://oneinexperience.com/nightlife", // "Sorpréndeme" → product "The city by night" (All products)
   payLinks: {                // Hostinger product page URLs (empty = concierge sends payment link)
     box: "https://oneinexperience.com/vip-box-one-in-nightlife", // VIP Box · One In Nightlife ($500 / $800 / $1,100)
-    special: "https://oneinexperience.com/dining",               // The Table you deserve ($50 occasion fee)
     experience: ""
   },
   signatureUrl: "https://oneinexperience.com/signature", // link for the ONE IN SIGNATURE card
@@ -354,14 +346,14 @@ sel_hint:"We'll show you Dining, Nightlife and Signature experiences that suit t
 see_places:"See places & experiences",see_plan:"See my proposed plan",need_date:"Please choose a day and a start time.",
 person:"guest",people:"guests",
 p2_title:"Choose where",change_filter:"Change filter",tab_all:"All",tab_rest:"Restaurants",tab_bars:"Bars",tab_exp:"Experiences",
-price_level:"Price level",rest_h:"Restaurants",rest_sub:"One In Dining partner venues",bars_h:"Bars",bars_sub:"One In Nightlife partner venues",
+price_level:"Price level",rest_h:"Restaurants",cat_dining:"Partner restaurants",cat_night:"Bars & clubs",cat_n_rest:"restaurants",cat_n_venues:"bars & clubs",rest_sub:"One In Dining partner venues",bars_h:"Bars",bars_sub:"One In Nightlife partner venues",
 clubs_h:"Clubs & VIP tables",clubs_sub:"Private VIP table access",exp_h:"Experiences",exp_sub:"One In Signature",
 add:"+ Add to my route",added:"✓ In my route",view:"View",book_box:"+ Book VIP table",
 none_found:"No partner venues are open at this time. Try another start time or day, or ask your concierge.",
 route_n:"My route: {n} places added",route_1:"My route: 1 place added",continue_route:"Continue with my route",
-back_places:"‹ Back to partner venues",partner:"OIE partner",about:"About the venue",addr:"Address",hrs:"Hours",address_hours:"Address & hours",
+back_places:"‹ Back to partner venues",partner:"OIE pass",about:"About the venue",addr:"Address",hrs:"Hours",address_hours:"Address & hours",
 benefits:"Your OIE benefits",benefits_fallback:"Your concierge will confirm your OIE benefits with your booking.",
-card_perk:"OIE partner: priority booking through your concierge",
+card_perk:"OIE pass: priority booking through your concierge",
 your_plan:"Your plan",res_time:"Booking time at this venue",res_note:"Subject to confirmation by the venue.",
 no_slots:"Not open on the selected day. Ask your concierge for alternatives.",
 view_route:"View route",ask_concierge:"Ask the concierge",how:"How it works",
@@ -369,7 +361,7 @@ how1:"Add the venue to your route",how2:"We write to you on WhatsApp",how3:"We c
 box_title:"VIP table only",box_text:"Access to this venue is exclusively through a private VIP table (a 'box', as it is known in Peru): no tickets, no guest lists. Your concierge arranges your arrival, table and service.",
 on_request:"Dates and venue change. Available on request through your concierge.",
 special:"Make it special",special_none:"No special occasion",occ_proposal:"Marriage proposal",occ_birthday:"Birthday",occ_anniv:"Anniversary",occ_bachelor:"Bachelor / bachelorette party",occ_date:"Special date",occ_other:"Other",
-fee_note:"An experience fee applies.",update_stop:"Update my route",
+fee_note:"Your concierge will arrange the details with you.",update_stop:"Update my route",
 p4_title:"Your plan for today",recs:"Recommended for you",myroute_today:"My route for today",
 route_empty:"Your route is empty. Add a restaurant, bar or experience.",remove:"Remove",
 warn_closed:"Closed at this time",warn_overlap:"Overlaps with the next stop",
@@ -410,7 +402,7 @@ sel_hint:"Te mostraremos lugares de Dining, Nightlife y experiencias Signature q
 see_places:"Ver lugares y experiencias",see_plan:"Ver el plan que te proponemos",need_date:"Elige un día y una hora de inicio.",
 person:"persona",people:"personas",
 p2_title:"Elige dónde",change_filter:"Cambiar filtro",tab_all:"Todo",tab_rest:"Restaurantes",tab_bars:"Bares",tab_exp:"Experiencias",
-price_level:"Nivel de precio",rest_h:"Restaurantes",rest_sub:"Locales con convenio One In Dining",bars_h:"Bares",bars_sub:"Locales con convenio One In Nightlife",
+price_level:"Nivel de precio",rest_h:"Restaurantes",cat_dining:"Restaurantes asociados",cat_night:"Bares y clubs",cat_n_rest:"restaurantes",cat_n_venues:"bares y clubs",rest_sub:"Locales con convenio One In Dining",bars_h:"Bares",bars_sub:"Locales con convenio One In Nightlife",
 clubs_h:"Discotecas y mesas VIP",clubs_sub:"Acceso con box o mesa VIP privada",exp_h:"Experiencias",exp_sub:"One In Signature",
 add:"+ Añadir a mi ruta",added:"✓ En mi ruta",view:"Ver",book_box:"+ Reservar box / mesa VIP",
 none_found:"No hay locales con convenio abiertos a esta hora. Prueba otra hora u otro día, o consulta al concierge.",
@@ -425,7 +417,7 @@ how1:"Añade el local a tu ruta",how2:"Te escribimos por WhatsApp",how3:"Confirm
 box_title:"Solo box o mesa VIP",box_text:"El acceso a este local es exclusivamente con box o mesa VIP privada: sin entradas ni listas. Tu concierge organiza tu llegada, tu mesa y el servicio.",
 on_request:"Las fechas y el local cambian. Disponible bajo consulta con tu concierge.",
 special:"Ocasión especial",special_none:"Sin ocasión especial",occ_proposal:"Pedida de mano",occ_birthday:"Cumpleaños",occ_anniv:"Aniversario",occ_bachelor:"Despedida de soltero/a",occ_date:"Fecha especial",occ_other:"Otra",
-fee_note:"Se añade un fee de experiencia.",update_stop:"Actualizar mi ruta",
+fee_note:"Tu concierge coordinará los detalles contigo.",update_stop:"Actualizar mi ruta",
 p4_title:"Tu plan de hoy",recs:"Recomendado para ti",myroute_today:"Mi ruta de hoy",
 route_empty:"Tu ruta está vacía. Añade un restaurante, un bar o una experiencia.",remove:"Quitar",
 warn_closed:"Cerrado a esta hora",warn_overlap:"Se solapa con la siguiente parada",
@@ -471,9 +463,9 @@ clubs_h:"Clubs et tables VIP",clubs_sub:"Accès avec une table VIP privée",exp_
 add:"+ Ajouter à mon itinéraire",added:"✓ Dans mon itinéraire",view:"Voir",book_box:"+ Réserver une table VIP",
 none_found:"Aucune adresse partenaire n'est ouverte à cette heure. Essayez une autre heure ou un autre jour, ou demandez à votre concierge.",
 route_n:"Mon itinéraire : {n} adresses",route_1:"Mon itinéraire : 1 adresse",continue_route:"Continuer avec mon itinéraire",
-back_places:"‹ Retour aux adresses partenaires",partner:"Partenaire OIE",about:"À propos",addr:"Adresse",hrs:"Horaires",address_hours:"Adresse et horaires",
+back_places:"‹ Retour aux adresses partenaires",partner:"OIE pass",about:"À propos",addr:"Adresse",hrs:"Horaires",address_hours:"Adresse et horaires",
 benefits:"Vos avantages OIE",benefits_fallback:"Votre concierge vous confirmera vos avantages OIE avec la réservation.",
-card_perk:"Partenaire OIE : réservation prioritaire via votre concierge",
+card_perk:"OIE pass : réservation prioritaire via votre concierge",
 your_plan:"Votre programme",res_time:"Heure de réservation",res_note:"Sous réserve de confirmation par l'établissement.",
 no_slots:"Fermé le jour choisi. Demandez une alternative à votre concierge.",
 view_route:"Voir l'itinéraire",ask_concierge:"Contacter le concierge",how:"Comment ça marche",
@@ -481,7 +473,7 @@ how1:"Ajoutez l'adresse à votre itinéraire",how2:"Nous vous écrivons sur What
 box_title:"Table VIP uniquement",box_text:"L'accès à ce lieu se fait exclusivement avec une table VIP privée (un « box », comme on dit au Pérou) : ni billets, ni listes. Votre concierge organise votre arrivée, votre table et le service.",
 on_request:"Dates et lieu variables. Disponible sur demande auprès de votre concierge.",
 special:"Une occasion spéciale",special_none:"Pas d'occasion particulière",occ_proposal:"Demande en mariage",occ_birthday:"Anniversaire",occ_anniv:"Anniversaire de couple",occ_bachelor:"Enterrement de vie de garçon / jeune fille",occ_date:"Date spéciale",occ_other:"Autre",
-fee_note:"Des frais d'expérience s'appliquent.",update_stop:"Mettre à jour",
+fee_note:"Votre concierge organisera les détails avec vous.",update_stop:"Mettre à jour",
 p4_title:"Votre programme du jour",recs:"Recommandé pour vous",myroute_today:"Mon itinéraire du jour",
 route_empty:"Votre itinéraire est vide. Ajoutez un restaurant, un bar ou une expérience.",remove:"Retirer",
 warn_closed:"Fermé à cette heure",warn_overlap:"Chevauche l'étape suivante",
@@ -527,9 +519,9 @@ clubs_h:"Clubs & VIP-Tische",clubs_sub:"Zutritt mit privatem VIP-Tisch",exp_h:"E
 add:"+ Zu meiner Route",added:"✓ In meiner Route",view:"Ansehen",book_box:"+ VIP-Tisch buchen",
 none_found:"Zu dieser Zeit sind keine Partnerlokale geöffnet. Versuchen Sie eine andere Uhrzeit oder einen anderen Tag, oder fragen Sie Ihren Concierge.",
 route_n:"Meine Route: {n} Orte",route_1:"Meine Route: 1 Ort",continue_route:"Weiter mit meiner Route",
-back_places:"‹ Zurück zu den Partnerlokalen",partner:"OIE-Partner",about:"Über das Lokal",addr:"Adresse",hrs:"Öffnungszeiten",address_hours:"Adresse & Öffnungszeiten",
+back_places:"‹ Zurück zu den Partnerlokalen",partner:"OIE pass",about:"Über das Lokal",addr:"Adresse",hrs:"Öffnungszeiten",address_hours:"Adresse & Öffnungszeiten",
 benefits:"Ihre OIE-Vorteile",benefits_fallback:"Ihr Concierge bestätigt Ihre OIE-Vorteile mit der Reservierung.",
-card_perk:"OIE-Partner: bevorzugte Reservierung über Ihren Concierge",
+card_perk:"OIE pass: bevorzugte Reservierung über Ihren Concierge",
 your_plan:"Ihr Plan",res_time:"Reservierungszeit in diesem Lokal",res_note:"Vorbehaltlich der Bestätigung durch das Lokal.",
 no_slots:"Am gewählten Tag geschlossen. Fragen Sie Ihren Concierge nach Alternativen.",
 view_route:"Route ansehen",ask_concierge:"Concierge fragen",how:"So funktioniert es",
@@ -537,7 +529,7 @@ how1:"Fügen Sie das Lokal Ihrer Route hinzu",how2:"Wir schreiben Ihnen auf What
 box_title:"Nur VIP-Tisch",box_text:"Der Zutritt zu diesem Lokal erfolgt ausschließlich über einen privaten VIP-Tisch (in Peru „Box“ genannt): keine Tickets, keine Gästelisten. Ihr Concierge organisiert Ankunft, Tisch und Service.",
 on_request:"Termine und Ort wechseln. Auf Anfrage über Ihren Concierge.",
 special:"Ein besonderer Anlass",special_none:"Kein besonderer Anlass",occ_proposal:"Heiratsantrag",occ_birthday:"Geburtstag",occ_anniv:"Jahrestag",occ_bachelor:"Junggesellenabschied",occ_date:"Besonderes Datum",occ_other:"Anderes",
-fee_note:"Es fällt eine Erlebnisgebühr an.",update_stop:"Route aktualisieren",
+fee_note:"Ihr Concierge stimmt die Details mit Ihnen ab.",update_stop:"Route aktualisieren",
 p4_title:"Ihr Plan für heute",recs:"Für Sie empfohlen",myroute_today:"Meine Route für heute",
 route_empty:"Ihre Route ist leer. Fügen Sie ein Restaurant, eine Bar oder ein Erlebnis hinzu.",remove:"Entfernen",
 warn_closed:"Zu dieser Zeit geschlossen",warn_overlap:"Überschneidet sich mit dem nächsten Halt",
@@ -582,9 +574,9 @@ clubs_h:"Клубы и VIP-столы",clubs_sub:"Вход с частным VIP
 add:"+ В мой маршрут",added:"✓ В маршруте",view:"Подробнее",book_box:"+ Забронировать VIP-стол",
 none_found:"В это время заведения-партнёры закрыты. Выберите другое время или день либо напишите консьержу.",
 route_n:"Мой маршрут: мест — {n}",route_1:"Мой маршрут: 1 место",continue_route:"Продолжить маршрут",
-back_places:"‹ К заведениям-партнёрам",partner:"Партнёр OIE",about:"О заведении",addr:"Адрес",hrs:"Часы работы",address_hours:"Адрес и часы работы",
+back_places:"‹ К заведениям-партнёрам",partner:"OIE pass",about:"О заведении",addr:"Адрес",hrs:"Часы работы",address_hours:"Адрес и часы работы",
 benefits:"Ваши привилегии OIE",benefits_fallback:"Консьерж подтвердит ваши привилегии OIE вместе с бронированием.",
-card_perk:"Партнёр OIE: приоритетное бронирование через консьержа",
+card_perk:"OIE pass: приоритетное бронирование через консьержа",
 your_plan:"Ваш план",res_time:"Время бронирования",res_note:"При условии подтверждения заведением.",
 no_slots:"В выбранный день закрыто. Уточните альтернативы у консьержа.",
 view_route:"Мой маршрут",ask_concierge:"Написать консьержу",how:"Как это работает",
@@ -592,7 +584,7 @@ how1:"Добавьте заведение в маршрут",how2:"Мы напи
 box_title:"Только VIP-стол",box_text:"Вход в это заведение — только с частным VIP-столом (в Перу его называют «бокс»): без билетов и списков. Консьерж организует ваше прибытие, стол и обслуживание.",
 on_request:"Даты и место меняются. Доступно по запросу через консьержа.",
 special:"Особый повод",special_none:"Без особого повода",occ_proposal:"Предложение руки и сердца",occ_birthday:"День рождения",occ_anniv:"Годовщина",occ_bachelor:"Мальчишник / девичник",occ_date:"Особая дата",occ_other:"Другое",
-fee_note:"Добавляется плата за впечатление.",update_stop:"Обновить маршрут",
+fee_note:"Консьерж согласует с вами детали.",update_stop:"Обновить маршрут",
 p4_title:"Ваш план на сегодня",recs:"Рекомендуем вам",myroute_today:"Мой маршрут на сегодня",
 route_empty:"Маршрут пока пуст. Добавьте ресторан, бар или впечатление.",remove:"Убрать",
 warn_closed:"В это время закрыто",warn_overlap:"Пересекается со следующей остановкой",
@@ -634,9 +626,9 @@ clubs_h:"夜店与 VIP 卡座",clubs_sub:"私人 VIP 卡座入场",exp_h:"体验
 add:"+ 加入我的路线",added:"✓ 已在路线中",view:"查看",book_box:"+ 预订 VIP 卡座",
 none_found:"此时段没有营业的合作场所。请更换时间或日期，或咨询您的礼宾。",
 route_n:"我的路线：已添加 {n} 处",route_1:"我的路线：已添加 1 处",continue_route:"继续我的路线",
-back_places:"‹ 返回合作场所",partner:"OIE 合作",about:"场所介绍",addr:"地址",hrs:"营业时间",address_hours:"地址与营业时间",
+back_places:"‹ 返回合作场所",partner:"OIE pass",about:"场所介绍",addr:"地址",hrs:"营业时间",address_hours:"地址与营业时间",
 benefits:"您的 OIE 礼遇",benefits_fallback:"您的礼宾将在确认预订时一并确认 OIE 礼遇。",
-card_perk:"OIE 合作：通过礼宾优先预订",
+card_perk:"OIE pass：通过礼宾优先预订",
 your_plan:"您的计划",res_time:"本场所预订时间",res_note:"以场所确认为准。",
 no_slots:"所选日期不营业。请向礼宾咨询其他选择。",
 view_route:"查看路线",ask_concierge:"咨询礼宾",how:"预订流程",
@@ -644,7 +636,7 @@ how1:"将场所加入路线",how2:"我们通过 WhatsApp 联系您",how3:"确认
 box_title:"仅限 VIP 卡座",box_text:"本场所仅接受私人 VIP 卡座（秘鲁称为 box）入场：无门票、无名单。礼宾将为您安排抵达、座位与服务。",
 on_request:"日期和地点会变动，可通过礼宾咨询。",
 special:"特别时刻",special_none:"无特别场合",occ_proposal:"求婚",occ_birthday:"生日",occ_anniv:"纪念日",occ_bachelor:"单身派对",occ_date:"特别日子",occ_other:"其他",
-fee_note:"将收取体验服务费。",update_stop:"更新我的路线",
+fee_note:"您的礼宾将与您确认细节。",update_stop:"更新我的路线",
 p4_title:"您的今日计划",recs:"为您推荐",myroute_today:"我的今日路线",
 route_empty:"路线为空。请添加餐厅、酒吧或体验。",remove:"移除",
 warn_closed:"此时段不营业",warn_overlap:"与下一站时间重叠",
@@ -710,6 +702,7 @@ function allParams(){
   return out;
 }
 var P=allParams();
+if(P.view==="catalog"){ ROOT.classList.add("oie-cat"); document.documentElement.style.background="#1a1a1a"; document.documentElement.classList.add("oie-cat-page"); }
 
 /* ---------- referral code (hotel / affiliate) ---------- */
 var MEMREF=(P.ref||P.hotel||P.aff||"").trim().toUpperCase().slice(0,60);
@@ -870,7 +863,7 @@ function priceLines(){
     var name=s.time+" · "+lineShort(it)+" · "+it.n;
     if(s.k==="club"){ var p=vipPrice(it); rows.push({s:s,label:name,item:t("l_box")+(it.lv>=4?" "+t("vip_size"):""),price:p,pay:"box"}); total+=p; }
     else if(s.k==="exp"){ if(it.price==null){ rows.push({s:s,label:name,item:t("l_exp"),price:null}); tbc=true; } else { rows.push({s:s,label:name,item:t("l_exp"),price:it.price,pay:"experience"}); total+=it.price; } }
-    else { rows.push({s:s,label:name,item:t("l_res"),price:0}); if(s.occ){ rows.push({s:s,label:"",item:t("l_special")+" · "+t("occ_"+s.occ),price:CFG.specialFee,pay:"special"}); total+=CFG.specialFee; } }
+    else { rows.push({s:s,label:name,item:t("l_res"),price:0}); if(s.occ){ rows.push({s:s,label:"",item:t("l_special")+" · "+t("occ_"+s.occ),price:0}); } }
   });
   return {rows:rows,total:total,tbc:tbc};
 }
@@ -968,6 +961,21 @@ function vPlaces(){
   var n=S.stops.length;
   h+='<div class="bar"><div class="in"><span><b>'+esc(n===1?t("route_1"):t("route_n",{n:n}))+'</b></span><a class="btn btn-p" href="#/route">'+esc(t("continue_route"))+'</a></div></div>';
   return h;
+}
+/* All products (Hostinger "Book" page): Dining / Nightlife catalogue embedded as an iframe.
+   URL: ?view=catalog&line=dining | ?view=catalog&line=nightlife  -> same card format, horizontal row */
+function vCatalog(line){
+  var night=line==="nightlife";
+  var list=V.filter(function(v){ var k=kindOf(v); return night?(v.l==="n"&&(k==="bar"||k==="club")):(k==="rest"); });
+  var base=location.origin+location.pathname+"?line="+(night?"nightlife":"dining");
+  function c(item){
+    var k=kindOf(item), perk=(item.p&&item.p.length)?(t("partner")+": "+item.p[0][0]):t("card_perk");
+    var meta=esc(item.c)+" · "+esc(item.di)+" · "+lvl(item.lv);
+    var extra=(k==="club"?'<div class="vip">'+esc(vipText(item))+'</div>':'')+(item.md?'<div class="music"><b>'+esc(t("music_lbl"))+'</b>'+esc(musicText(item))+'</div>':'');
+    return '<div class="card">'+ph(item)+'<h3 class="notranslate" translate="no">'+esc(item.n)+'</h3><div class="meta">'+meta+'</div>'+extra+'<div class="perk">'+esc(item.req?t("on_request"):perk)+'</div><div class="acts"><a class="btn-w" target="_blank" rel="noopener" href="'+esc(base+"#/venue/"+item.id)+'">'+esc(t("view"))+' ›</a></div></div>';
+  }
+  return '<div class="cat-h"><div><div class="eyebrow">'+(night?"ONE IN NIGHTLIFE":"ONE IN DINING")+'</div><h2>'+esc(night?t("cat_night"):t("cat_dining"))+'</h2></div><span class="small">'+list.length+' '+esc(night?t("cat_n_venues"):t("cat_n_rest"))+'</span></div>'+
+    '<div class="cat-row">'+list.map(c).join("")+'</div>';
 }
 function occSelect(cur,act,id){
   return '<select data-act="'+act+'" data-v="'+(id||"")+'"><option value="">'+esc(t("special_none"))+'</option>'+OCC.map(function(o){return '<option value="'+o+'"'+(cur===o?" selected":"")+'>'+esc(t("occ_"+o))+'</option>'}).join("")+'</select>';
@@ -1105,8 +1113,8 @@ function route(){
   var line=qs.get("line")||P.line;
   if(line==="dining"||line==="nightlife"){ if(S.line!==line){ S.line=line; var pre=line==="dining"?"dinner":"party"; if(S.types.indexOf(pre)<0) S.types.push(pre); save(); } }
   if(qs.get("tab")){ S.tab=qs.get("tab"); }
-  var v=parts[0]||(P.line?"plan":"book"), html;
-  if(v==="plan") html=vPlan(); else if(v==="places") html=vPlaces(); else if(v==="venue") html=vVenue(parts[1]); else if(v==="route") html=vRoute(); else if(v==="send") html=vSend(); else if(v==="done") html=vDone(); else html=vBook();
+  var v=parts[0]||(P.view==="catalog"?"catalog":(P.line?"plan":"book")), html;
+  if(v==="catalog") html=vCatalog(line||"dining"); else if(v==="plan") html=vPlan(); else if(v==="places") html=vPlaces(); else if(v==="venue") html=vVenue(parts[1]); else if(v==="route") html=vRoute(); else if(v==="send") html=vSend(); else if(v==="done") html=vDone(); else html=vBook();
   ROOT.innerHTML='<div class="wrap">'+html+'</div>';
   ROOT.setAttribute("lang",L);
 }
