@@ -58,14 +58,42 @@ function shell(inner) {
   <div style="padding:28px;color:#2b2222;font-size:15px;line-height:1.6">${inner}</div></div></div>`;
 }
 
+/* Tailor made (Plan your trip) and Events forms: CRM contact + guest acknowledgement + team notification */
+async function handleRequest(payload, label) {
+  const d = payload.data || {};
+  const name = `${(d.name || "").trim()} ${(d.last_name || "").trim()}`.trim();
+  const sender = { email: process.env.BREVO_SENDER_EMAIL, name: process.env.BREVO_SENDER_NAME || "One In Experience" };
+  const sum = `<pre style="white-space:pre-wrap;font-family:inherit;background:#faf6f2;padding:14px;border-left:3px solid #c9a46a">${esc(d.summary)}</pre>`;
+  const tasks = [];
+  const contact = { email: d.email, updateEnabled: true, attributes: { FIRSTNAME: (d.name || "").trim(), LASTNAME: (d.last_name || "").trim() } };
+  if (process.env.BREVO_LIST_ID) contact.listIds = [Number(process.env.BREVO_LIST_ID)];
+  tasks.push(brevo("/contacts", contact));
+  tasks.push(brevo("/smtp/email", {
+    sender, to: [{ email: d.email, name }], replyTo: { email: process.env.BREVO_SENDER_EMAIL },
+    subject: "We have received your request · One In Experience",
+    htmlContent: shell(`<p>Dear ${esc(d.name || name)},</p><p>Thank you for contacting ONE IN EXPERIENCE. An advisor will reply with a first proposal within 24 hours, by email or WhatsApp.</p>${sum}<p>Warm regards, the ONE IN EXPERIENCE team</p>`),
+  }));
+  const team = (process.env.CONCIERGE_EMAIL || "").split(",").map((e) => e.trim()).filter(Boolean).map((email) => ({ email }));
+  if (team.length) tasks.push(brevo("/smtp/email", {
+    sender, to: team, replyTo: { email: d.email, name },
+    subject: `Nueva solicitud ${label} · ${name} · ${d.event_date || d.arrival || ""}`,
+    htmlContent: shell(`<p><b>Nueva solicitud desde el formulario ${esc(label)}</b></p>${sum}<p>Página: ${esc(d.page || "")}</p>`),
+  }));
+  const results = await Promise.allSettled(tasks);
+  results.filter((r) => r.status === "rejected").forEach((r) => console.error(r.reason));
+  return { statusCode: 200, body: "ok" };
+}
+
 exports.handler = async (event) => {
   let payload;
   try { payload = JSON.parse(event.body).payload; } catch (e) { return { statusCode: 400, body: "bad body" }; }
-  if (!payload || payload.form_name !== "oie-booking") return { statusCode: 200, body: "ignored" };
+  const REQUEST_FORMS = { "oie-tailor-made": "Tailor made", "oie-events": "Events" };
+  if (!payload || (payload.form_name !== "oie-booking" && !REQUEST_FORMS[payload.form_name])) return { statusCode: 200, body: "ignored" };
   if (!process.env.BREVO_API_KEY || !process.env.BREVO_SENDER_EMAIL) {
     console.error("Missing BREVO_API_KEY / BREVO_SENDER_EMAIL");
     return { statusCode: 200, body: "brevo not configured" };
   }
+  if (REQUEST_FORMS[payload.form_name]) return handleRequest(payload, REQUEST_FORMS[payload.form_name]);
   const d = payload.data || {};
   const lang = String(d.lang || "en").slice(0, 2) === "es" ? "es" : "en";
   const T = COPY[lang];
