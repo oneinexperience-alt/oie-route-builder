@@ -8,7 +8,6 @@
 :root{--bg:#000;--card:#161313;--card2:#211c1c;--line:#3a3333;--text:#f3eee8;--muted:#a79f97;--wine:#7a1c24;--wine2:#9b2430;--wine-txt:#e0525d;--warn:#e7b25a}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--text);font-family:'Poppins',system-ui,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
-body.light{--bg:transparent}
 .wrap{max-width:600px;margin:0 auto;padding:4px 2px 24px}
 label,.lab{display:block;font-size:14.5px;margin:0 0 7px;color:var(--text)}
 .lab small,label small{color:var(--muted);font-size:12.5px}
@@ -79,7 +78,7 @@ textarea{resize:vertical;min-height:96px}
 <script>
 (function(){
 var Q=new URLSearchParams(location.search), KIND=Q.get("f")==="events"?"events":"trip";
-if(Q.get("bg")==="none") document.body.classList.add("light");
+if(Q.get("bg")==="none") document.documentElement.style.setProperty("--bg","transparent");
 var COUNTRIES="Argentina,Australia,Austria,Belgium,Bolivia,Brazil,Canada,Chile,China,Colombia,Costa Rica,Czech Republic,Denmark,Dominican Republic,Ecuador,Egypt,Finland,France,Germany,Greece,Guatemala,Hong Kong,India,Indonesia,Ireland,Israel,Italy,Japan,Kuwait,Lebanon,Luxembourg,Mexico,Monaco,Morocco,Netherlands,New Zealand,Norway,Panama,Paraguay,Peru,Philippines,Poland,Portugal,Puerto Rico,Qatar,Russia,Saudi Arabia,Singapore,South Africa,South Korea,Spain,Sweden,Switzerland,Taiwan,Thailand,Turkey,United Arab Emirates,United Kingdom,United States,Uruguay,Venezuela".split(",");
 document.getElementById("countries").innerHTML=COUNTRIES.map(function(c){return '<option value="'+c+'">'}).join("");
 var S={name:"",last:"",email:"",msg:"",wa:"",country:"",multi:[],one:"",d1:null,d2:null,flex:false,time:null,guests:KIND==="events"?50:2,budget:"",calM:null,consent:false};
