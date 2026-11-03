@@ -1,0 +1,190 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Request form | One In Experience</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Outfit:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#161313;--card2:#211c1c;--line:#3a3333;--text:#f3eee8;--muted:#a79f97;--wine:#7a1c24;--wine2:#9b2430;--wine-txt:#e0525d;--warn:#e7b25a}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:'Poppins',system-ui,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body.light{--bg:transparent}
+.wrap{max-width:600px;margin:0 auto;padding:4px 2px 24px}
+label,.lab{display:block;font-size:14.5px;margin:0 0 7px;color:var(--text)}
+.lab small,label small{color:var(--muted);font-size:12.5px}
+.f{margin-bottom:18px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+input[type=text],input[type=email],input[type=tel],textarea,select{width:100%;background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px 13px;font:inherit;font-size:14px}
+input:focus,textarea:focus,select:focus{outline:1px solid var(--wine2);border-color:var(--wine2)}
+textarea{resize:vertical;min-height:96px}
+::placeholder{color:#7d746e}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:8px 15px;font:inherit;font-size:13.5px;background:transparent;color:var(--text);cursor:pointer;transition:.15s}
+.chip:hover{border-color:#6b5f5f}
+.chip.on{background:var(--wine);border-color:var(--wine);color:#fff}
+/* calendar */
+.cal{background:var(--card);border:1px solid #2a2424;border-radius:14px;padding:14px;max-width:360px}
+.cal-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:600;font-size:14px;text-transform:capitalize}
+.cal-h button{width:32px;height:32px;border-radius:50%;font-size:18px;background:none;border:0;color:var(--text);cursor:pointer}
+.cal-h button:hover{background:var(--card2)}.cal-h button[disabled]{opacity:.25;cursor:default}
+.cal-g{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+.cal-g .dw{font-size:11px;color:var(--muted);padding:4px 0;text-transform:uppercase}
+.cal-g button{height:38px;border-radius:8px;font:inherit;font-size:13.5px;background:none;border:0;color:var(--text);cursor:pointer}
+.cal-g button:hover:not([disabled]){background:var(--card2)}
+.cal-g button.in{background:rgba(122,28,36,.35);border-radius:0}
+.cal-g button.on{background:var(--wine);color:#fff;border-radius:8px}
+.cal-g button[disabled]{opacity:.25;cursor:default}
+.sel{font-size:13.5px;color:var(--muted);margin-top:10px}.sel b{color:var(--text);font-weight:500}
+.chk{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:var(--muted);margin-top:10px;cursor:pointer}
+.chk input{margin-top:3px;accent-color:#9b2430}
+/* time slider */
+.tsl{max-width:420px;background:var(--card);border:1px solid #2a2424;border-radius:14px;padding:14px 16px 10px}
+.tsl-v{font-family:'Outfit',sans-serif;font-size:26px;font-weight:300;text-align:center;line-height:1.2}
+.tsl-v.empty{font-family:'Poppins',sans-serif;font-size:13px;color:var(--muted);padding:8px 0 4px}
+.tsl input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;margin:6px 0 0;cursor:grab;border:0;padding:0}
+.tsl input[type=range]:focus{outline:none}
+.tsl input[type=range]::-webkit-slider-runnable-track{height:2px;background:linear-gradient(90deg,var(--wine2) var(--pct,0%),#4a4343 var(--pct,0%));border-radius:2px}
+.tsl input[type=range]::-moz-range-track{height:2px;background:#4a4343}
+.tsl input[type=range]::-moz-range-progress{height:2px;background:var(--wine2)}
+.tsl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#f3eee8;border:4px solid var(--wine2);margin-top:-10px;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.tsl input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#f3eee8;border:4px solid var(--wine2)}
+.tsl-t{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+/* stepper */
+.stepper{display:flex;align-items:center;gap:16px}
+.stepper button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--text);font-size:18px;cursor:pointer}
+.stepper button:hover{border-color:var(--wine2)}
+.stepper span{font-size:19px;min-width:44px;text-align:center;font-family:'Outfit',sans-serif}
+.btn{display:block;width:100%;border:0;border-radius:999px;padding:14px 18px;font:inherit;font-weight:600;font-size:14.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--wine2);color:#fff;cursor:pointer;margin-top:8px}
+.btn:hover{background:#b02a37}.btn[disabled]{opacity:.6;cursor:wait}
+.err{color:var(--warn);font-size:13px;margin-top:10px}
+.done{text-align:center;padding:60px 10px}
+.done h2{font-family:'Outfit',sans-serif;font-weight:300;font-size:32px;margin:0 0 10px}
+.done p{color:var(--muted);margin:0 auto;max-width:420px}
+.hp{position:absolute;left:-9999px}
+@media(max-width:520px){.row{grid-template-columns:1fr;gap:0}.cal{max-width:none}}
+</style></head><body>
+<div class="wrap">
+<!-- Netlify Forms registers these at deploy time -->
+<form name="oie-tailor-made" data-netlify="true" netlify-honeypot="bot-field" hidden>
+<input name="bot-field"><input name="name"><input name="last_name"><input name="email"><textarea name="message"></textarea><input name="interests">
+<input name="whatsapp"><input name="country"><input name="arrival"><input name="departure"><input name="flexible"><input name="guests"><input name="budget"><textarea name="summary"></textarea><input name="lang"><input name="page">
+</form>
+<form name="oie-events" data-netlify="true" netlify-honeypot="bot-field" hidden>
+<input name="bot-field"><input name="name"><input name="last_name"><input name="email"><textarea name="message"></textarea><input name="event_type">
+<input name="whatsapp"><input name="country"><input name="event_date"><input name="flexible"><input name="start_time"><input name="destination"><input name="guests"><input name="budget"><textarea name="summary"></textarea><input name="lang"><input name="page">
+</form>
+<div id="app"></div>
+</div>
+<datalist id="countries"></datalist>
+<script>
+(function(){
+var Q=new URLSearchParams(location.search), KIND=Q.get("f")==="events"?"events":"trip";
+if(Q.get("bg")==="none") document.body.classList.add("light");
+var COUNTRIES="Argentina,Australia,Austria,Belgium,Bolivia,Brazil,Canada,Chile,China,Colombia,Costa Rica,Czech Republic,Denmark,Dominican Republic,Ecuador,Egypt,Finland,France,Germany,Greece,Guatemala,Hong Kong,India,Indonesia,Ireland,Israel,Italy,Japan,Kuwait,Lebanon,Luxembourg,Mexico,Monaco,Morocco,Netherlands,New Zealand,Norway,Panama,Paraguay,Peru,Philippines,Poland,Portugal,Puerto Rico,Qatar,Russia,Saudi Arabia,Singapore,South Africa,South Korea,Spain,Sweden,Switzerland,Taiwan,Thailand,Turkey,United Arab Emirates,United Kingdom,United States,Uruguay,Venezuela".split(",");
+document.getElementById("countries").innerHTML=COUNTRIES.map(function(c){return '<option value="'+c+'">'}).join("");
+var S={name:"",last:"",email:"",msg:"",wa:"",country:"",multi:[],one:"",d1:null,d2:null,flex:false,time:null,guests:KIND==="events"?50:2,budget:"",calM:null,consent:false};
+var INTERESTS=["Gastronomy","Nightlife","Nature","Culture","Wellness","Celebration"];
+var EVTYPES=["Wedding in Peru","Corporate event","A very special occasion"];
+var CITIES=["Lima","Cusco","Paracas","Máncora","Arequipa","Other / not sure"];
+var BUDGET_T=["Under $5,000","$5,000 – $15,000","$15,000 – $30,000","Over $30,000"];
+var BUDGET_E=["Under $20,000","$20,000 – $50,000","$50,000 – $100,000","Over $100,000"];
+var TIMES=[]; for(var m=8*60;m<=23*60;m+=30) TIMES.push(p2(Math.floor(m/60))+":"+p2(m%60));
+var dest=[];
+function p2(n){return (n<10?"0":"")+n}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function iso(d){return d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate())}
+function today(){return iso(new Date())}
+function nice(s){ if(!s) return ""; var a=s.split("-"); var d=new Date(+a[0],a[1]-1,+a[2]); try{return new Intl.DateTimeFormat("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"}).format(d)}catch(e){return s} }
+function chip(act,v,on){return '<button type="button" class="chip'+(on?" on":"")+'" data-act="'+act+'" data-v="'+esc(v)+'">'+esc(v)+'</button>'}
+function calendar(){
+  var now=new Date(), base=S.calM?new Date(S.calM+"-01T12:00:00"):now;
+  var y=base.getFullYear(), m=base.getMonth(), first=new Date(y,m,1), off=(first.getDay()+6)%7, n=new Date(y,m+1,0).getDate(), t=today();
+  var title=new Intl.DateTimeFormat("en-GB",{month:"long",year:"numeric"}).format(first);
+  var prevOk=(y>now.getFullYear())||(y===now.getFullYear()&&m>now.getMonth());
+  var h='<div class="cal"><div class="cal-h"><button type="button" data-act="cal" data-v="-1" '+(prevOk?"":"disabled")+' aria-label="Previous month">‹</button><span>'+title+'</span><button type="button" data-act="cal" data-v="1" aria-label="Next month">›</button></div><div class="cal-g">';
+  ["M","T","W","T","F","S","S"].forEach(function(w){h+='<div class="dw">'+w+'</div>'});
+  for(var i=0;i<off;i++) h+='<span></span>';
+  for(var d=1;d<=n;d++){ var v=y+"-"+p2(m+1)+"-"+p2(d), cls="";
+    if(v===S.d1||v===S.d2) cls="on"; else if(KIND==="trip"&&S.d1&&S.d2&&v>S.d1&&v<S.d2) cls="in";
+    h+='<button type="button" data-act="day" data-v="'+v+'"'+(cls?' class="'+cls+'"':'')+(v<t?" disabled":"")+'>'+d+'</button>'; }
+  return h+'</div></div>';
+}
+function tsl(vals,cur){
+  var i=vals.indexOf(cur), n=vals.length, pct=i>-1?Math.round(i/(n-1)*100):0;
+  return '<div class="tsl"><div class="tsl-v'+(i<0?" empty":"")+'">'+(i<0?"Slide to choose a time (optional)":cur)+'</div><input type="range" min="0" max="'+(n-1)+'" value="'+(i<0?0:i)+'" style="--pct:'+pct+'%" data-act="time" aria-label="Start time"><div class="tsl-t"><span>'+vals[0]+'</span><span>'+vals[Math.floor((n-1)/2)]+'</span><span>'+vals[n-1]+'</span></div></div>';
+}
+function inp(id,lab,type,val,ph,req){ return '<div class="f"><label for="'+id+'">'+lab+(req?"*":"")+'</label><input id="'+id+'" data-k="'+id+'" type="'+type+'" value="'+esc(val)+'" placeholder="'+esc(ph||"")+'"'+(id==="country"?' list="countries" autocomplete="country-name"':'')+(id==="wa"?' inputmode="tel" autocomplete="tel"':'')+(id==="email"?' autocomplete="email"':'')+'></div>'; }
+function render(){
+  var ev=KIND==="events", dateTxt;
+  if(ev) dateTxt=S.d1?'<b>'+nice(S.d1)+'</b>':'Tap a day on the calendar';
+  else dateTxt=S.d1?('<b>'+nice(S.d1)+'</b>'+(S.d2?' → <b>'+nice(S.d2)+'</b>':' · now tap your departure day')):'Tap your arrival day, then your departure day';
+  var h='<form id="f" novalidate>'+
+    '<div class="row">'+inp("name","Name","text",S.name,"Your name",1)+inp("last","Last name","text",S.last,"Your last name")+'</div>'+
+    inp("email","Your email","email",S.email,"Your email address",1)+
+    '<div class="f"><label for="msg">Message*</label><textarea id="msg" data-k="msg" placeholder="Tell us about your plans">'+esc(S.msg)+'</textarea></div>'+
+    '<div class="f"><div class="lab">'+(ev?"Event type*":"Interests")+'</div><div class="chips">'+(ev?EVTYPES.map(function(x){return chip("one",x,S.one===x)}):INTERESTS.map(function(x){return chip("multi",x,S.multi.indexOf(x)>-1)})).join("")+'</div></div>'+
+    '<div class="row">'+inp("wa","WhatsApp (with country code)","tel",S.wa,"+44 7700 900000",1)+inp("country","Country of residence","text",S.country,"Start typing…",1)+'</div>'+
+    '<div class="f"><div class="lab">'+(ev?"Approximate date*":"Travel dates*")+'</div>'+calendar()+'<div class="sel">'+dateTxt+'</div>'+
+      '<label class="chk"><input type="checkbox" data-k="flex"'+(S.flex?" checked":"")+'>My dates are flexible</label></div>'+
+    (ev?'<div class="f"><div class="lab">Approximate start time <small>(optional)</small></div>'+tsl(TIMES,S.time)+'</div>'+
+        '<div class="f"><div class="lab">Destination / city*</div><div class="chips">'+CITIES.map(function(x){return chip("dest",x,dest.indexOf(x)>-1)}).join("")+'</div></div>':'')+
+    '<div class="f"><div class="lab">Number of guests*</div><div class="stepper"><button type="button" data-act="g" data-v="-1" aria-label="Fewer guests">−</button><span>'+S.guests+'</span><button type="button" data-act="g" data-v="1" aria-label="More guests">+</button></div></div>'+
+    '<div class="f"><div class="lab">Approximate budget <small>(USD, optional)</small></div><div class="chips">'+(ev?BUDGET_E:BUDGET_T).map(function(x){return chip("budget",x,S.budget===x)}).join("")+'</div></div>'+
+    '<label class="chk" style="margin-bottom:14px"><input type="checkbox" data-k="consent"'+(S.consent?" checked":"")+'>I agree to be contacted by One In Experience about this request.</label>'+
+    '<input class="hp" name="bot-field" tabindex="-1" autocomplete="off">'+
+    '<button class="btn" type="submit">Submit</button><div id="err"></div></form>';
+  var app=document.getElementById("app"); app.innerHTML=h;
+}
+function step(){ return KIND==="events"?(S.guests>=100?10:5):1; }
+document.addEventListener("click",function(e){
+  var b=e.target.closest("[data-act]"); if(!b||b.tagName==="INPUT") return;
+  var a=b.getAttribute("data-act"), v=b.getAttribute("data-v");
+  if(a==="multi"){ var i=S.multi.indexOf(v); if(i>-1) S.multi.splice(i,1); else S.multi.push(v); }
+  else if(a==="one") S.one=v;
+  else if(a==="dest"){ var j=dest.indexOf(v); if(j>-1) dest.splice(j,1); else dest.push(v); }
+  else if(a==="budget") S.budget=S.budget===v?"":v;
+  else if(a==="cal"){ var base=S.calM?new Date(S.calM+"-01T12:00:00"):new Date(); base=new Date(base.getFullYear(),base.getMonth()+(+v),1); S.calM=base.getFullYear()+"-"+p2(base.getMonth()+1); }
+  else if(a==="day"){
+    if(KIND==="events"){ S.d1=v; S.d2=null; }
+    else if(!S.d1||S.d2||v<S.d1){ S.d1=v; S.d2=null; } else if(v===S.d1){ S.d1=null; } else S.d2=v;
+  }
+  else if(a==="g"){ var s=step(); S.guests=Math.max(1,Math.min(2000,S.guests+(+v)*s)); }
+  else return;
+  var y=window.scrollY; render(); window.scrollTo(0,y);
+});
+document.addEventListener("input",function(e){
+  var el=e.target;
+  if(el.getAttribute("data-act")==="time"){ S.time=TIMES[+el.value]; var box=el.parentNode.querySelector(".tsl-v"); box.textContent=S.time; box.classList.remove("empty"); el.style.setProperty("--pct",Math.round(el.value/(TIMES.length-1)*100)+"%"); return; }
+  var k=el.getAttribute("data-k"); if(!k) return;
+  S[k]=el.type==="checkbox"?el.checked:el.value;
+});
+document.addEventListener("change",function(e){ var k=e.target.getAttribute("data-k"); if(k&&e.target.type==="checkbox") S[k]=e.target.checked; });
+document.addEventListener("submit",function(e){
+  e.preventDefault();
+  var ev=KIND==="events", err=document.getElementById("err");
+  var miss=!S.name.trim()||!/^\S+@\S+\.\S+$/.test(S.email)||!S.msg.trim()||S.wa.replace(/\D/g,"").length<7||!S.country.trim()||!S.d1||(ev&&(!S.one||!dest.length))||!S.consent;
+  if(miss){ err.innerHTML='<p class="err">Please complete the fields marked with *, choose '+(ev?'the event type, a date and a destination':'your travel dates')+', and accept to be contacted.</p>'; return; }
+  var hp=document.querySelector(".hp"); if(hp&&hp.value) return;
+  var lines=[(ev?"EVENT REQUEST":"TAILOR MADE REQUEST"),"",
+    "Name: "+S.name+" "+S.last, "Email: "+S.email, "WhatsApp: "+S.wa, "Country: "+S.country,
+    ev?"Event type: "+S.one:"Interests: "+(S.multi.join(", ")||"—"),
+    ev?"Date: "+nice(S.d1)+(S.flex?" (flexible)":""):"Travel dates: "+nice(S.d1)+(S.d2?" → "+nice(S.d2):"")+(S.flex?" (flexible)":"")];
+  if(ev){ lines.push("Start time: "+(S.time||"—")); lines.push("Destination: "+dest.join(", ")); }
+  lines.push("Guests: "+S.guests, "Budget (USD): "+(S.budget||"—"), "", "Message:", S.msg);
+  var fd=new URLSearchParams();
+  fd.append("form-name",ev?"oie-events":"oie-tailor-made"); fd.append("bot-field","");
+  fd.append("name",S.name); fd.append("last_name",S.last); fd.append("email",S.email); fd.append("message",S.msg);
+  fd.append("whatsapp",S.wa); fd.append("country",S.country); fd.append("flexible",S.flex?"yes":"no");
+  fd.append("guests",String(S.guests)); fd.append("budget",S.budget);
+  if(ev){ fd.append("event_type",S.one); fd.append("event_date",S.d1); fd.append("start_time",S.time||""); fd.append("destination",dest.join(", ")); }
+  else { fd.append("interests",S.multi.join(", ")); fd.append("arrival",S.d1); fd.append("departure",S.d2||""); }
+  fd.append("summary",lines.join("\n")); fd.append("lang","en"); fd.append("page",document.referrer||location.href);
+  var btn=document.querySelector(".btn"); btn.disabled=true; btn.textContent="Sending…";
+  fetch("/forms/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:fd.toString()})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); document.getElementById("app").innerHTML='<div class="done"><h2>Thank you, '+esc(S.name)+'</h2><p>Your request is with our team. An advisor will reply with a first proposal within 24 hours, by email or WhatsApp.</p></div>'; try{window.scrollTo(0,0)}catch(x){} })
+    .catch(function(){ btn.disabled=false; btn.textContent="Submit"; err.innerHTML='<p class="err">We could not send your request. Please try again or write to us on WhatsApp at +34 603 02 50 78.</p>'; });
+});
+render();
+})();
+</script>
+</body></html>
