@@ -105,7 +105,7 @@ exports.handler = async (event) => {
       subject: `Nueva ruta · ${name} · ${d.date || ""} ${d.start || ""} · ${d.total || ""}`,
       htmlContent: shell(`<p><b>Nueva solicitud desde el route builder</b></p>
         <p>Cliente: ${esc(name)} · ${esc(d.email)} · WhatsApp ${esc(d.whatsapp)} · ${esc(d.country)}<br>
-        Hotel / lugar de estadía: ${esc(d.hotel || "—")}<br>Código: ${esc(d.ref || "—")} · Idioma: ${esc(lang)}</p>${routeHtml}
+        Hotel / lugar de estadía: ${esc(d.hotel || "—")}<br>${d.instagram ? `Instagram (guest list): ${esc(d.instagram)}<br>` : ""}Código: ${esc(d.ref || "—")} · Idioma: ${esc(lang)}</p>${routeHtml}
         <p>Notas: ${esc(d.notes || "—")}</p>`),
     });
     tasks.push(brevo("/smtp/email", teamMail));
