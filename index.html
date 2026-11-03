@@ -33,7 +33,7 @@ html,body{margin:0;background:#121212}
 <form name="oie-booking" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
 <input name="bot-field"><input name="name"><input name="email"><input name="whatsapp"><input name="country">
 <input name="hotel"><input name="ref"><textarea name="notes"></textarea><input name="date"><input name="start">
-<input name="guests"><input name="lang"><textarea name="route"></textarea><input name="total"><textarea name="payload"></textarea>
+<input name="guests"><input name="instagram"><input name="lang"><textarea name="route"></textarea><input name="total"><textarea name="payload"></textarea>
 </form>
 <div class="oie-site">
 <header class="oie-hdr"><div class="in">
@@ -188,6 +188,39 @@ html.oie-cat-page body{background:#1a1a1a}
 #oie-rb .invite .eyebrow{color:#c9a46a;font-size:10.5px}
 #oie-rb .invite p{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;line-height:1.6;color:#efe6da;margin:8px 0 0}
 #oie-rb .invite p.short{font-family:'Poppins',sans-serif;font-style:normal;font-size:12.5px;color:#c9a46a;margin-top:10px}
+
+/* --- back arrow (thin, discreet) --- */
+#oie-rb .back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;margin-right:14px;padding:4px 10px 4px 6px;border:1px solid rgba(255,255,255,.10);border-radius:999px;transition:.15s;vertical-align:middle}
+#oie-rb .back:hover{color:var(--text);border-color:rgba(255,255,255,.28)}
+#oie-rb .back svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.2;fill:none}
+/* --- booking options (nightlife) --- */
+#oie-rb .opts{display:grid;gap:8px;margin-top:4px}
+#oie-rb .opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;border:1px solid var(--line);border-radius:12px;padding:12px 14px;transition:.15s}
+#oie-rb .opt:hover{border-color:#6b5f5f}
+#oie-rb .opt.on{border-color:var(--wine2);background:rgba(122,28,36,.18)}
+#oie-rb .opt i{flex:none;width:16px;height:16px;border-radius:50%;border:1px solid #8a7f7f;margin-top:3px;position:relative}
+#oie-rb .opt.on i{border-color:var(--wine-txt)}
+#oie-rb .opt.on i:after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--wine-txt)}
+#oie-rb .opt b{display:block;font-size:14px;font-weight:600}
+#oie-rb .opt small{display:block;color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:2px}
+#oie-rb .opt .tagf{display:inline-block;margin-left:6px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#f0b9c4;border:1px solid #7a3a48;border-radius:999px;padding:1px 7px;vertical-align:2px;font-weight:600}
+#oie-rb .opt .pr{color:#f3d9a4}
+/* --- sliding time picker --- */
+#oie-rb .tsl{max-width:420px;background:var(--card);border-radius:14px;padding:14px 16px 10px}
+#oie-rb .panel .tsl{background:var(--card2)}
+#oie-rb .tsl-v{font-family:'Outfit',system-ui,sans-serif;font-size:26px;font-weight:300;letter-spacing:.02em;text-align:center;line-height:1.2}
+#oie-rb .tsl-v.empty{font-family:'Poppins',sans-serif;font-size:13px;color:var(--muted);padding:8px 0 4px}
+#oie-rb .tsl input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;margin:6px 0 0;cursor:grab;border:0;padding:0;border-radius:0;box-shadow:none}
+#oie-rb .tsl input[type=range]::-webkit-slider-runnable-track{height:2px;background:linear-gradient(90deg,var(--wine2) var(--pct,0%),#4a4343 var(--pct,0%));border-radius:2px}
+#oie-rb .tsl input[type=range]::-moz-range-track{height:2px;background:#4a4343;border-radius:2px}
+#oie-rb .tsl input[type=range]::-moz-range-progress{height:2px;background:var(--wine2)}
+#oie-rb .tsl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#f3eee8;border:4px solid var(--wine2);margin-top:-10px;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+#oie-rb .tsl input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#f3eee8;border:4px solid var(--wine2)}
+#oie-rb .tsl input[type=range]:focus{outline:none}
+#oie-rb .tsl-t{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:.04em}
+#oie-rb .stop-c .tsl{flex:1;min-width:200px;padding:8px 12px 6px}
+#oie-rb .stop-c .tsl-v{font-size:18px}
+#oie-rb .gl-note{font-size:12.5px;color:#f0b9c4;margin-top:8px}
 @keyframes oieFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 @media(max-width:900px){
 #oie-rb{padding:18px 16px 110px}
@@ -684,6 +717,40 @@ var CFG = Object.assign({
   defaultLang:"en"
 }, window.OIE_CONFIG||{});
 
+
+var OIE_I18N_ADD={
+en:{back:"Back",opt_title:"Choose how to book",opt_res:"Reserve through us",opt_res_d:"Free. Your concierge confirms your table and entry.",opt_vip:"VIP table",
+opt_gl:"Apply for a guest list",opt_gl_tag:"Girls only",opt_gl_d:"Women only. Free entry, subject to the venue's approval. Leave your details and we confirm on WhatsApp.",
+book_opts:"+ Booking options",apply_gl:"+ Apply for the guest list",l_gl:"Guest list application · girls only",tag_res:"RESERVATION",tag_gl:"GUEST LIST",
+f_ig:"Leave us your IG (optional)",f_ig_ph:"@yourinstagram",lbl_ig:"Instagram",slide_time:"Slide to choose a time",
+box_title:"How to book",box_text:"Reserve through your concierge, book a private VIP table or, for women only, apply for the guest list.",gl_note:"The guest list is for women only. Your concierge confirms every name."},
+es:{back:"Volver",opt_title:"Elige cómo reservar",opt_res:"Reserva a través de nosotros",opt_res_d:"Sin coste. Tu concierge confirma tu mesa y tu entrada.",opt_vip:"Box / mesa VIP",
+opt_gl:"Apply for a guest list",opt_gl_tag:"Solo chicas",opt_gl_d:"Solo para chicas. Entrada gratuita sujeta a aprobación del local. Déjanos tus datos y te confirmamos por WhatsApp.",
+book_opts:"+ Opciones de reserva",apply_gl:"+ Apply for the guest list",l_gl:"Solicitud de guest list · solo chicas",tag_res:"RESERVA",tag_gl:"GUEST LIST",
+f_ig:"Déjanos tu IG (opcional)",f_ig_ph:"@tuinstagram",lbl_ig:"Instagram",slide_time:"Desliza para elegir la hora",
+box_title:"Cómo reservar",box_text:"Reserva a través de tu concierge, reserva un box o mesa VIP privada o, solo para chicas, solicita entrar en la guest list.",gl_note:"La guest list es solo para chicas. Tu concierge confirma cada nombre."},
+fr:{back:"Retour",opt_title:"Choisissez comment réserver",opt_res:"Réserver avec nous",opt_res_d:"Gratuit. Votre concierge confirme votre table et votre entrée.",opt_vip:"Table VIP",
+opt_gl:"Apply for a guest list",opt_gl_tag:"Filles uniquement",opt_gl_d:"Réservé aux femmes. Entrée gratuite, sous réserve d'acceptation du lieu. Laissez vos coordonnées, nous confirmons sur WhatsApp.",
+book_opts:"+ Options de réservation",apply_gl:"+ Apply for the guest list",l_gl:"Demande de guest list · filles uniquement",tag_res:"RÉSERVATION",tag_gl:"GUEST LIST",
+f_ig:"Laissez-nous votre IG (facultatif)",f_ig_ph:"@votreinstagram",lbl_ig:"Instagram",slide_time:"Faites glisser pour choisir l'heure",
+box_title:"Comment réserver",box_text:"Réservez via votre concierge, une table VIP privée ou, pour les femmes uniquement, demandez la guest list.",gl_note:"La guest list est réservée aux femmes. Votre concierge confirme chaque nom."},
+de:{back:"Zurück",opt_title:"Wählen Sie, wie Sie buchen",opt_res:"Über uns reservieren",opt_res_d:"Kostenlos. Ihr Concierge bestätigt Tisch und Einlass.",opt_vip:"VIP-Tisch",
+opt_gl:"Apply for a guest list",opt_gl_tag:"Nur für Frauen",opt_gl_d:"Nur für Frauen. Freier Eintritt nach Zustimmung des Lokals. Hinterlassen Sie Ihre Daten, wir bestätigen per WhatsApp.",
+book_opts:"+ Buchungsoptionen",apply_gl:"+ Apply for the guest list",l_gl:"Gästelisten-Anfrage · nur Frauen",tag_res:"RESERVIERUNG",tag_gl:"GUEST LIST",
+f_ig:"Ihr IG (optional)",f_ig_ph:"@ihrinstagram",lbl_ig:"Instagram",slide_time:"Schieben, um die Uhrzeit zu wählen",
+box_title:"So buchen Sie",box_text:"Reservieren Sie über Ihren Concierge, buchen Sie einen privaten VIP-Tisch oder bewerben Sie sich (nur Frauen) für die Gästeliste.",gl_note:"Die Gästeliste ist nur für Frauen. Ihr Concierge bestätigt jeden Namen."},
+ru:{back:"Назад",opt_title:"Выберите способ бронирования",opt_res:"Забронировать через нас",opt_res_d:"Бесплатно. Консьерж подтвердит стол и вход.",opt_vip:"VIP-стол",
+opt_gl:"Apply for a guest list",opt_gl_tag:"Только для девушек",opt_gl_d:"Только для девушек. Бесплатный вход при одобрении заведения. Оставьте данные — мы подтвердим в WhatsApp.",
+book_opts:"+ Варианты бронирования",apply_gl:"+ Apply for the guest list",l_gl:"Заявка в guest list · только девушки",tag_res:"БРОНЬ",tag_gl:"GUEST LIST",
+f_ig:"Ваш IG (необязательно)",f_ig_ph:"@вашinstagram",lbl_ig:"Instagram",slide_time:"Сдвиньте, чтобы выбрать время",
+box_title:"Как забронировать",box_text:"Бронируйте через консьержа, закажите приватный VIP-стол или, только для девушек, подайте заявку в guest list.",gl_note:"Guest list только для девушек. Консьерж подтверждает каждое имя."},
+zh:{back:"返回",opt_title:"选择预订方式",opt_res:"通过我们预订",opt_res_d:"免费。您的礼宾将确认座位与入场。",opt_vip:"VIP 卡座",
+opt_gl:"Apply for a guest list",opt_gl_tag:"仅限女士",opt_gl_d:"仅限女士。免费入场，需经场所批准。留下您的信息，我们将通过 WhatsApp 确认。",
+book_opts:"+ 预订选项",apply_gl:"+ Apply for the guest list",l_gl:"嘉宾名单申请 · 仅限女士",tag_res:"预订",tag_gl:"GUEST LIST",
+f_ig:"留下您的 IG（选填）",f_ig_ph:"@您的instagram",lbl_ig:"Instagram",slide_time:"滑动选择时间",
+box_title:"预订方式",box_text:"通过礼宾预订、预订私人 VIP 卡座，或（仅限女士）申请嘉宾名单。",gl_note:"嘉宾名单仅限女士。您的礼宾会确认每位来宾。"}
+};
+for(var _l in OIE_I18N_ADD){ if(OIE_I18N[_l]) for(var _k in OIE_I18N_ADD[_l]) OIE_I18N[_l][_k]=OIE_I18N_ADD[_l][_k]; }
 var ROOT=document.getElementById("oie-rb"); if(!ROOT) return;
 var EMBED=false; try{EMBED=window.self!==window.top}catch(e){EMBED=true}
 if(EMBED) ROOT.classList.add("oie-embed");
@@ -720,7 +787,7 @@ function refCode(){
 }
 
 /* ---------- state ---------- */
-var D={lang:null,surprise:false,types:[],date:null,start:null,mood:null,music:[],pax:2,tab:"all",levels:[],stops:[],cust:{name:"",email:"",wa:"",country:"",hotel:"",notes:"",consent:false},calM:null,langAsked:false};
+var D={lang:null,surprise:false,types:[],date:null,start:null,mood:null,music:[],pax:2,tab:"all",levels:[],stops:[],cust:{name:"",email:"",wa:"",country:"",hotel:"",notes:"",ig:"",consent:false},calM:null,langAsked:false};
 var S=Object.assign({},D,sget(KEY)||{});
 S.cust=Object.assign({},D.cust,S.cust||{});
 if(!Array.isArray(S.music)) S.music=[];
@@ -768,7 +835,7 @@ var TYPES=["dinner","drinks","party","workshop","crawl","private","celebration"]
 var MOODS=["quiet","lively","romantic","friends","corporate"];
 var MUS=["alt","comercial","urbano","house","rock","latino","variado"];
 var OCC=["proposal","birthday","anniv","bachelor","date","other"];
-var TIMES=["18:00","19:00","20:00","21:00","22:00","23:00","00:00"];
+var TIMES=["18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00","22:30","23:00","23:30","00:00"];
 function lvl(n){ return "$$$$".slice(0,n); }
 function lineName(item){ var k=kindOf(item); return k==="exp"?"ONE IN SIGNATURE":(item.l==="d"?"ONE IN DINING":"ONE IN NIGHTLIFE"); }
 function lineShort(item){ var k=kindOf(item); return k==="exp"?"SIGNATURE":(item.l==="d"?"DINING":"NIGHTLIFE"); }
@@ -840,11 +907,11 @@ function nextSlot(item){
   for(var i=0;i<sl.length;i++) if(sl[i]>=after) return fmt(sl[i]);
   return fmt(sl[sl.length-1]);
 }
-function addStop(id,time,occ){
+function addStop(id,time,occ,o){
   var it=find(id); if(!it||it.req) return;
   var k=kindOf(it), ex=S.stops.filter(function(s){return s.id===id})[0];
-  if(ex){ if(time) ex.time=time; if(occ!==undefined) ex.occ=occ; }
-  else S.stops.push({id:id,k:k,time:time||nextSlot(it),occ:(k==="rest"&&occ)?occ:""});
+  if(ex){ if(time) ex.time=time; if(occ!==undefined) ex.occ=occ; if(k==="club"&&o) ex.o=o; }
+  else S.stops.push({id:id,k:k,time:time||nextSlot(it),occ:(k==="rest"&&occ)?occ:"",o:k==="club"?(o||"res"):""});
   sortStops(); save();
 }
 function removeStop(id){ S.stops=S.stops.filter(function(s){return s.id!==id}); save(); }
@@ -854,7 +921,7 @@ function warnings(){
     var it=find(s.id), m=tm(s.time), a=[];
     if(d!=null && it && !isOpen(it,d,m)) a.push(t("warn_closed"));
     var nx=S.stops[i+1]; if(nx && tm(nx.time) < m+(it&&it.dur||dur(s.k))) a.push(t("warn_overlap"));
-    if(s.k==="club" && S.pax>10) a.push(t("warn_box"));
+    if(sopt(s)==="vip" && S.pax>10) a.push(t("warn_box"));
     w[s.id]=a;
   });
   return w;
@@ -864,7 +931,9 @@ function priceLines(){
   S.stops.forEach(function(s){
     var it=find(s.id); if(!it) return;
     var name=s.time+" · "+lineShort(it)+" · "+it.n;
-    if(s.k==="club"){ var p=vipPrice(it); rows.push({s:s,label:name,item:t("l_box")+(it.lv>=4?" "+t("vip_size"):""),price:p,pay:"box"}); total+=p; }
+    if(s.k==="club"){ var o=sopt(s);
+      if(o==="vip"){ var p=vipPrice(it); rows.push({s:s,label:name,item:t("l_box")+(it.lv>=4?" "+t("vip_size"):""),price:p,pay:"box"}); total+=p; }
+      else rows.push({s:s,label:name,item:o==="gl"?t("l_gl"):t("l_res"),price:0}); }
     else if(s.k==="exp"){ if(it.price==null){ rows.push({s:s,label:name,item:t("l_exp"),price:null}); tbc=true; } else { rows.push({s:s,label:name,item:t("l_exp"),price:it.price,pay:"experience"}); total+=it.price; } }
     else { rows.push({s:s,label:name,item:t("l_res"),price:0}); if(s.occ){ rows.push({s:s,label:"",item:t("l_special")+" · "+t("occ_"+s.occ),price:0}); } }
   });
@@ -879,7 +948,19 @@ function langSel(){
   if(CFG.langs.length<2) return "";
   return '<select class="langsel notranslate" translate="no" data-act="lang" aria-label="Language">'+CFG.langs.map(function(l){return '<option value="'+l+'"'+(l===L?" selected":"")+'>'+OIE_LANG_NAMES[l]+'</option>'}).join("")+'</select>';
 }
-function top(crumbs){ return '<div class="topbar"><div class="crumb">'+crumbs+'</div>'+langSel()+'</div>'+banner(); }
+
+function sopt(s){ return s.k==="club"?(s.o||"vip"):""; }
+function tsl(act,id,vals,cur){
+  var i=vals.indexOf(cur), n=vals.length; if(!n) return "";
+  var pct=n>1&&i>-1?Math.round(i/(n-1)*100):0, mid=vals[Math.floor((n-1)/2)];
+  return '<div class="tsl"><div class="tsl-v'+(i<0?' empty':'')+'">'+(i<0?esc(t("slide_time")):esc(cur))+'</div>'+
+    '<input type="range" min="0" max="'+(n-1)+'" step="1" value="'+(i<0?0:i)+'" style="--pct:'+pct+'%" data-act="'+act+'" data-v="'+esc(id||"")+'" data-vals="'+vals.join(",")+'" aria-label="'+esc(t("start_time"))+'">'+
+    '<div class="tsl-t"><span>'+vals[0]+'</span>'+(n>2?'<span>'+mid+'</span>':'')+'<span>'+vals[n-1]+'</span></div></div>';
+}
+var CURV="book", NAV=0;
+var BACK={plan:"#/book",places:"#/plan",venue:"#/places",route:"#/places",send:"#/route",done:"#/plan"};
+function backBtn(){ if(!BACK[CURV]) return ""; return '<a class="back" href="'+BACK[CURV]+'" data-act="back" aria-label="'+esc(t("back"))+'"><svg viewBox="0 0 16 16"><path d="M10 3L5 8l5 5"/></svg>'+esc(t("back"))+'</a>'; }
+function top(crumbs){ return '<div class="topbar"><div class="crumb">'+backBtn()+crumbs+'</div>'+langSel()+'</div>'+banner(); }
 function banner(){
   if(S.langAsked) return "";
   var b=((navigator.languages&&navigator.languages[0])||navigator.language||"").slice(0,2).toLowerCase();
@@ -928,7 +1009,7 @@ function vPlan(){
     surpriseCta()+
     '<div class="label">'+esc(t("plan_type"))+'</div><div class="chips">'+TYPES.map(function(x){return chip("type",x,S.types.indexOf(x)>-1,t("t_"+x))}).join("")+'</div>'+
     '<div class="label">'+esc(t("day"))+'</div>'+calendar()+
-    '<div class="label">'+esc(t("start_time"))+'</div><div class="chips">'+TIMES.map(function(x){return chip("start",x,S.start===x,x)}).join("")+'</div>'+
+    '<div class="label">'+esc(t("start_time"))+'</div>'+tsl("tsl-start","",TIMES,S.start)+
     '<div class="label">'+esc(t("mood"))+'</div><div class="chips">'+MOODS.map(function(x){return chip("mood",x,S.mood===x,t("m_"+x))}).join("")+'</div>'+
     (S.line!=="dining"?musicChips():'')+
     '<div class="label">'+esc(t("guests"))+'</div><div class="stepper"><button data-act="pax" data-v="-1" aria-label="-">−</button><span>'+S.pax+'</span><button data-act="pax" data-v="1" aria-label="+">+</button></div>'+
@@ -938,7 +1019,8 @@ function card(item){
   var k=kindOf(item), added=inRoute(item.id), perk=(item.p&&item.p.length)?(t("partner")+": "+item.p[0][0]):t("card_perk");
   var meta=esc(item.c)+" · "+esc(item.di)+" · "+lvl(item.lv);
   var btn=item.req?'<button class="btn-w" data-act="ask" data-v="'+item.id+'">'+esc(t("ask_concierge"))+'</button>':
-    '<button class="btn-w'+(added?" on":"")+'" data-act="add" data-v="'+item.id+'">'+esc(added?t("added"):(k==="club"?t("book_box"):t("add")))+'</button>';
+    (k==="club"?'<a class="btn-w'+(added?" on":"")+'" style="text-decoration:none" href="#/venue/'+item.id+'">'+esc(added?t("added"):t("book_opts"))+'</a>':
+    '<button class="btn-w'+(added?" on":"")+'" data-act="add" data-v="'+item.id+'">'+esc(added?t("added"):t("add"))+'</button>');
   var extra=(k==="club"?'<div class="vip">'+esc(vipText(item))+'</div>':'')+(item.md?'<div class="music"><b>'+esc(t("music_lbl"))+'</b>'+esc(musicText(item))+'</div>':'');
   return '<div class="card">'+ph(item)+(k==="exp"?'<div class="eyebrow" style="margin-top:12px">SIGNATURE</div>':'')+'<h3 class="notranslate" translate="no"'+(k==="exp"?' style="margin-top:4px"':'')+'>'+esc(item.n)+'</h3><div class="meta">'+meta+'</div>'+extra+'<div class="perk">'+esc(item.req?t("on_request"):perk)+'</div><div class="acts">'+btn+'<a class="btn-g" href="#/venue/'+item.id+'">'+esc(t("view"))+'</a></div></div>';
 }
@@ -987,8 +1069,8 @@ var pend={time:null,occ:""};
 function vVenue(id){
   var it=find(id); if(!it) return vPlaces();
   var k=kindOf(it), d=dow(), st=startMin(), ex=S.stops.filter(function(s){return s.id===id})[0];
-  if(pend.id!==id) pend={id:id,time:ex?ex.time:null,occ:ex?ex.occ:""};
-  var sl=d==null?[]:slots(it,d,st!=null?Math.max(st-60,0):null).slice(0,12);
+  if(pend.id!==id) pend={id:id,time:ex?ex.time:null,occ:ex?ex.occ:"",o:ex?sopt(ex):"res"};
+  var sl=d==null?[]:slots(it,d,st!=null?Math.max(st-60,0):null);
   if(!pend.time && sl.length) pend.time=nextSlot(it);
   var perks=(it.p&&it.p.length)?'<div class="box2">'+it.p.map(function(p){return '<div class="mini"><h3 style="font-size:15px;margin-bottom:6px">'+esc(p[0])+'</h3><span class="small">'+esc(p[1]||"")+'</span></div>'}).join("")+'</div>':'<div class="mini" style="margin-top:10px">'+esc(t("benefits_fallback"))+'</div>';
   var map=(it.req||k==="exp")?'<div class="mini"></div>':'<iframe class="map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q='+encodeURIComponent(it.n+", "+it.a+", Lima, Peru")+'&output=embed" title="Map"></iframe>';
@@ -996,24 +1078,32 @@ function vVenue(id){
     '<h1 class="notranslate" translate="no">'+esc(it.n)+'</h1><div class="chips">'+[it.c,it.di,lvl(it.lv)].map(function(x){return '<span class="chip sm">'+esc(x)+'</span>'}).join("")+'</div>'+
     '<div class="vsec"><h2>'+esc(t("about"))+'</h2><p>'+esc(it.d)+'</p></div>'+
     (it.md?'<div class="vsec"><h2>'+esc(t("music"))+'</h2><p>'+esc(musicText(it))+'</p></div>':'')+
-    (k==="club"?'<div class="vsec"><h2>'+esc(t("box_title"))+'</h2><p>'+esc(it.req?t("on_request"):t("box_text"))+'</p><p class="vip" style="font-size:15px">'+esc(vipText(it))+'</p>'+(S.pax>10&&!it.req?'<p class="hint">'+esc(t("warn_box"))+'</p>':'')+'</div>':'')+
+    (k==="club"?'<div class="vsec"><h2>'+esc(t("box_title"))+'</h2><p>'+esc(it.req?t("on_request"):t("box_text"))+'</p><p class="vip" style="font-size:15px">'+esc(vipText(it))+'</p>'+(S.pax>10&&!it.req&&pend.o==="vip"?'<p class="hint">'+esc(t("warn_box"))+'</p>':'')+'</div>':'')+
     '<div class="vsec"><h2>'+esc(t("address_hours"))+'</h2><div class="box2"><div class="mini"><b>'+esc(t("addr"))+'</b>'+esc(it.a||"—")+'<br><br><b>'+esc(t("hrs"))+'</b>'+esc(it.ht)+'</div>'+map+'</div></div>'+
     (k==="exp"?'':'<div class="vsec"><h2>'+esc(t("benefits"))+'</h2>'+perks+'</div>')+'</div>';
-  var chips=sl.length?'<div class="chips">'+sl.map(function(m){var v=fmt(m);return chip("vtime",v,pend.time===v,v)}).join("")+'</div>':'<div class="small">'+esc(t("no_slots"))+'</div>';
-  var main=it.req?'':'<button class="btn btn-p" data-act="vadd" data-v="'+id+'"'+(sl.length||!S.date?'':' disabled style="opacity:.5"')+'>'+esc(ex?t("update_stop"):(k==="club"?t("book_box"):t("add")))+'</button>';
+  var chips=sl.length?tsl("tsl-vtime",id,sl.map(fmt),pend.time):'<div class="small">'+esc(t("no_slots"))+'</div>';
+  function opt(v,title,desc,extra){ return '<button class="opt'+(pend.o===v?" on":"")+'" data-act="opt" data-v="'+v+'"><i></i><span><b>'+esc(title)+(extra||"")+'</b><small>'+desc+'</small></span></button>'; }
+  var opts=(k==="club"&&!it.req)?'<div class="label" style="margin-top:16px">'+esc(t("opt_title"))+'</div><div class="opts">'+
+    opt("res",t("opt_res"),esc(t("opt_res_d")))+
+    opt("vip",t("opt_vip"),'<span class="pr">'+esc(vipText(it))+'</span>')+
+    opt("gl",t("opt_gl"),esc(t("opt_gl_d")),'<span class="tagf">'+esc(t("opt_gl_tag"))+'</span>')+'</div>':'';
+  var mainLbl=ex?t("update_stop"):(k==="club"?(pend.o==="gl"?t("apply_gl"):(pend.o==="vip"?t("book_box"):t("add"))):t("add"));
+  var main=it.req?'':'<button class="btn btn-p" data-act="vadd" data-v="'+id+'"'+(sl.length||!S.date?'':' disabled style="opacity:.5"')+'>'+esc(mainLbl)+'</button>';
   var right='<aside class="panel dock" id="oie-dock"><h3 data-act="dock">'+esc(t("your_plan"))+'<span class="sheet-only">▴</span></h3>'+
-    '<div class="dock-body">'+summary().map(function(x){return '<div class="line">'+esc(x)+'</div>'}).join("")+'</div>'+
+    '<div class="dock-body">'+summary().map(function(x){return '<div class="line">'+esc(x)+'</div>'}).join("")+'</div>'+opts+
     (it.req?'':'<div class="label" style="margin-top:16px">'+esc(t("res_time"))+'</div><div class="small" style="margin:-6px 0 10px">'+esc(t("res_note"))+'</div>'+chips)+
     (k==="rest"?'<div class="label">'+esc(t("special"))+'</div>'+occSelect(pend.occ,"vocc")+(pend.occ?'<div class="small" style="margin-top:6px">'+esc(t("fee_note"))+'</div>':''):'')+
     '<div style="margin-top:18px">'+main+'<a class="btn btn-o" href="#/route">'+esc(t("view_route"))+'</a><button class="btn btn-o" data-act="ask" data-v="'+id+'">'+esc(t("ask_concierge"))+'</button></div>'+
     '<div class="dock-body"><div class="label">'+esc(t("how"))+'</div><ol class="how"><li><i>1</i>'+esc(t("how1"))+'</li><li><i>2</i>'+esc(t("how2"))+'</li><li><i>3</i>'+esc(t("how3"))+'</li></ol></div></aside>';
-  return top('<a href="#/places">'+esc(t("back_places"))+'</a>')+ph(it,"hero")+'<div class="grid2">'+left+right+'</div>';
+  return top('<a href="#/places">'+esc(t("bc_places"))+'</a>')+ph(it,"hero")+'<div class="grid2">'+left+right+'</div>';
 }
 function stopRow(s,w){
   var it=find(s.id); if(!it) return "";
-  var d=dow(), st=startMin(), sl=d==null?[]:slots(it,d,st!=null?st-120:null), opts=sl.map(fmt); if(opts.indexOf(s.time)<0) opts.unshift(s.time);
-  return '<div class="stop"><div class="stop-h"><span class="stop-t">'+esc(s.time)+'</span><span class="stop-n"><small>'+lineShort(it)+(s.k==="club"?" · "+esc(t("tag_box")):"")+'</small><span class="notranslate" translate="no">'+esc(it.n)+'</span></span><button class="stop-x" data-act="rm" data-v="'+s.id+'">'+esc(t("remove"))+'</button></div>'+
-    '<div class="stop-c"><select data-act="stime" data-v="'+s.id+'" aria-label="time">'+opts.map(function(o){return '<option'+(o===s.time?" selected":"")+'>'+o+'</option>'}).join("")+'</select>'+(s.k==="rest"?occSelect(s.occ,"socc",s.id):'')+'</div>'+
+  var d=dow(), st=startMin(), sl=d==null?[]:slots(it,d,st!=null?st-120:null), opts=sl.map(fmt); if(opts.indexOf(s.time)<0){ opts.push(s.time); opts.sort(function(a,b){return tm(a)-tm(b)}); }
+  var so=sopt(s), tag=so==="vip"?t("tag_box"):(so==="gl"?t("tag_gl"):(so==="res"?t("tag_res"):""));
+  var osel=s.k==="club"?'<select data-act="sopt" data-v="'+s.id+'" aria-label="option">'+[["res","opt_res"],["vip","opt_vip"],["gl","opt_gl"]].map(function(x){return '<option value="'+x[0]+'"'+(so===x[0]?" selected":"")+'>'+esc(t(x[1]))+(x[0]==="vip"?" · "+usd(vipPrice(it)):"")+(x[0]==="gl"?" · "+esc(t("opt_gl_tag")):"")+'</option>'}).join("")+'</select>':'';
+  return '<div class="stop"><div class="stop-h"><span class="stop-t">'+esc(s.time)+'</span><span class="stop-n"><small>'+lineShort(it)+(tag?" · "+esc(tag):"")+'</small><span class="notranslate" translate="no">'+esc(it.n)+'</span></span><button class="stop-x" data-act="rm" data-v="'+s.id+'">'+esc(t("remove"))+'</button></div>'+
+    '<div class="stop-c">'+tsl("tsl-stime",s.id,opts,s.time)+(s.k==="rest"?occSelect(s.occ,"socc",s.id):osel)+'</div>'+(so==="gl"?'<div class="gl-note">'+esc(t("gl_note"))+'</div>':'')+
     (s.occ?'<div class="warn" style="color:var(--muted)">'+esc(t("fee_note"))+'</div>':'')+
     (w[s.id]||[]).map(function(x){return '<div class="warn">⚠ '+esc(x)+'</div>'}).join("")+'</div>';
 }
@@ -1027,7 +1117,7 @@ function vRoute(){
   return top('<a href="#/places">'+esc(t("bc_places"))+'</a> › '+esc(t("bc_route")))+
     '<h1>'+esc(t("p4_title"))+'</h1><div class="sub">'+esc(summary().join(" · "))+'<a class="lnk" href="#/plan">'+esc(t("change_filter"))+'</a></div>'+
     '<div class="grid2" style="margin-top:22px"><div><div class="label" style="margin-top:0">'+esc(t("recs"))+'</div><div class="cards">'+recs.map(function(r){
-      var k=kindOf(r); return '<div class="card">'+ph(r)+'<div class="eyebrow" style="margin-top:12px">'+lineShort(r)+'</div><h3 class="notranslate" translate="no" style="margin-top:4px">'+esc(r.n)+(k==="club"?" · "+esc(t("tag_box")):"")+'</h3><div class="meta">'+esc(r.c)+' · '+lvl(r.lv)+'</div>'+(k==="club"?'<div class="vip">'+esc(vipText(r))+'</div>':'')+'<div class="acts" style="margin-top:12px"><button class="btn-w" data-act="add" data-v="'+r.id+'">'+esc(k==="club"?t("book_box"):t("add"))+'</button><a class="btn-g" href="#/venue/'+r.id+'">'+esc(t("view"))+'</a></div></div>';
+      var k=kindOf(r); return '<div class="card">'+ph(r)+'<div class="eyebrow" style="margin-top:12px">'+lineShort(r)+'</div><h3 class="notranslate" translate="no" style="margin-top:4px">'+esc(r.n)+'</h3><div class="meta">'+esc(r.c)+' · '+lvl(r.lv)+'</div>'+(k==="club"?'<div class="vip">'+esc(vipText(r))+'</div>':'')+'<div class="acts" style="margin-top:12px">'+(k==="club"?'<a class="btn-w" style="text-decoration:none" href="#/venue/'+r.id+'">'+esc(t("book_opts"))+'</a>':'<button class="btn-w" data-act="add" data-v="'+r.id+'">'+esc(t("add"))+'</button>')+'<a class="btn-g" href="#/venue/'+r.id+'">'+esc(t("view"))+'</a></div></div>';
     }).join("")+'</div><a class="btn btn-o" style="max-width:320px;margin-top:18px" href="#/places">'+esc(t("add_more"))+'</a></div>'+
     '<aside class="panel routep"><h3>'+esc(t("myroute_today"))+'</h3><div>'+
     (S.stops.length?S.stops.map(function(s){return stopRow(s,w)}).join(""):'<p class="note">'+esc(t("route_empty"))+'</p>')+'</div>'+
@@ -1042,11 +1132,12 @@ function vSend(){
   var pl=priceLines(), c=S.cust, ref=refCode();
   var rows=pl.rows.map(function(r){ return '<tr><td>'+(r.label?'<span class="notranslate" translate="no">'+esc(r.label)+'</span><br>':'')+'<span class="small">'+esc(r.item)+'</span></td><td>'+(r.price==null?'<span class="small">'+esc(t("tbc"))+'</span>':money(r.price))+'</td></tr>' }).join("");
   function f(id,lab,type,val,full){ return '<div'+(full?' class="full"':'')+'><label for="oie-'+id+'">'+esc(lab)+'</label><input id="oie-'+id+'" data-f="'+id+'" type="'+type+'" value="'+esc(val)+'"'+(id==="wa"?' inputmode="tel" placeholder="+1 555 000 0000"':'')+'></div>'; }
-  return top('<a href="#/route">‹ '+esc(t("bc_route"))+'</a>')+'<h1>'+esc(t("review_title"))+'</h1><div class="sub">'+esc(summary().join(" · "))+'</div>'+
+  return top('<a href="#/route">'+esc(t("bc_route"))+'</a>')+'<h1>'+esc(t("review_title"))+'</h1><div class="sub">'+esc(summary().join(" · "))+'</div>'+
     '<div class="grid2" style="margin-top:22px"><div><div class="mini" style="padding:20px"><h2>'+esc(t("breakdown"))+'</h2><table class="bd">'+rows+'<tr class="tot"><td>'+esc(t("total"))+(pl.tbc?' <span class="small">+ '+esc(t("tbc"))+'</span>':'')+'</td><td>'+money(pl.total)+' '+CFG.currency+'</td></tr></table></div>'+
     '<div class="mini" style="padding:20px;margin-top:16px"><h2>'+esc(t("details"))+'</h2><div class="form">'+
     f("name",t("f_name"),"text",c.name)+f("email",t("f_email"),"email",c.email)+f("wa",t("f_wa"),"tel",c.wa)+f("country",t("f_country"),"text",c.country)+
     '<div class="full"><label for="oie-hotel">'+esc(t("f_hotel"))+'</label><input id="oie-hotel" data-f="hotel" type="text" autocomplete="off" placeholder="'+esc(t("f_hotel_ph"))+'" value="'+esc(c.hotel)+'">'+inviteBox(!!c.hotel)+'</div>'+
+    (S.stops.some(function(s){return sopt(s)==="gl"})?'<div class="full"><label for="oie-ig">'+esc(t("f_ig"))+'</label><input id="oie-ig" data-f="ig" type="text" autocomplete="off" placeholder="'+esc(t("f_ig_ph"))+'" value="'+esc(c.ig||"")+'"><div class="gl-note">'+esc(t("gl_note"))+'</div></div>':'')+
     '<div class="full"><label for="oie-ref">'+esc(t("f_ref"))+'</label><input id="oie-ref" data-f="ref" type="text" value="'+esc(c.ref||ref)+'"></div>'+
     '<div class="full"><label for="oie-notes">'+esc(t("f_notes"))+'</label><textarea id="oie-notes" data-f="notes" rows="3">'+esc(c.notes)+'</textarea></div>'+
     '<label class="chk full"><input type="checkbox" data-f="consent"'+(c.consent?" checked":"")+'>'+esc(t("f_consent"))+'</label></div></div></div>'+
@@ -1072,7 +1163,7 @@ function postNetlifyForm(payload,text){
     var c=payload.customer, fd=new URLSearchParams();
     fd.append("form-name","oie-booking"); fd.append("bot-field","");
     fd.append("name",c.name); fd.append("email",c.email); fd.append("whatsapp",c.whatsapp); fd.append("country",c.country);
-    fd.append("hotel",c.hotel||""); fd.append("ref",payload.ref||""); fd.append("notes",c.notes||"");
+    fd.append("hotel",c.hotel||""); fd.append("instagram",c.instagram||""); fd.append("ref",payload.ref||""); fd.append("notes",c.notes||"");
     fd.append("date",payload.plan.date||""); fd.append("start",payload.plan.start||""); fd.append("guests",String(payload.plan.guests));
     fd.append("lang",payload.lang); fd.append("route",text); fd.append("total",String(payload.total)+" "+payload.currency);
     fd.append("payload",JSON.stringify(payload));
@@ -1091,14 +1182,16 @@ function submit(){
   pl.rows.forEach(function(r){ lines.push((r.label?"• "+r.label+" — ":"   ↳ ")+r.item+": "+(r.price==null?t("tbc"):money(r.price))); });
   lines.push(t("total")+": "+money(pl.total)+" "+CFG.currency+(pl.tbc?" + "+t("tbc"):""),"",
     t("lbl_name")+": "+c.name, t("lbl_email")+": "+c.email, "WhatsApp: "+c.wa, t("lbl_country")+": "+c.country);
+  var hasGL=S.stops.some(function(s){return sopt(s)==="gl"}), ig=hasGL?(c.ig||"").trim():"";
+  if(ig) lines.push(t("lbl_ig")+": "+ig);
   if(c.hotel) lines.push(t("lbl_hotel")+": "+c.hotel);
   if(ref) lines.push(t("lbl_ref")+": "+ref);
   if(c.notes) lines.push(t("lbl_notes")+": "+c.notes);
   var text=lines.join("\n"), wa=waLink(text);
   var payload={source:"oie-route-builder",submitted_at:new Date().toISOString(),lang:L,ref:ref,
-    customer:{name:c.name,email:c.email,whatsapp:c.wa,country:c.country,hotel:c.hotel||"",notes:c.notes,consent:true},
+    customer:{name:c.name,email:c.email,whatsapp:c.wa,country:c.country,hotel:c.hotel||"",instagram:ig,notes:c.notes,consent:true},
     plan:{date:S.date,start:S.start,types:S.types,mood:S.mood,music:S.music,guests:S.pax,business_days_ahead:businessDaysUntil()},
-    stops:S.stops.map(function(s){var it=find(s.id); return {time:s.time,line:it?lineName(it):"",venue:it?it.n:s.id,venue_id:s.id,kind:s.k,occasion:s.occ||"",price:s.k==="club"?(it?vipPrice(it):CFG.boxVipPrice):(s.k==="exp"?(it.price==null?null:it.price):(s.occ?CFG.specialFee:0))}}),
+    stops:S.stops.map(function(s){var it=find(s.id); return {time:s.time,line:it?lineName(it):"",venue:it?it.n:s.id,venue_id:s.id,kind:s.k,option:sopt(s),occasion:s.occ||"",price:s.k==="club"?(sopt(s)==="vip"?(it?vipPrice(it):CFG.boxVipPrice):0):(s.k==="exp"?(it.price==null?null:it.price):(s.occ?CFG.specialFee:0))}}),
     total:pl.total,currency:CFG.currency,has_quote_items:pl.tbc,whatsapp_text:text,page:location.href};
   postNetlifyForm(payload,text);
   if(CFG.webhookUrl){ try{ fetch(CFG.webhookUrl,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=UTF-8"},body:JSON.stringify(payload),keepalive:true}) }catch(e){} }
@@ -1116,7 +1209,7 @@ function route(){
   var line=qs.get("line")||P.line;
   if(line==="dining"||line==="nightlife"){ if(S.line!==line){ S.line=line; var pre=line==="dining"?"dinner":"party"; if(S.types.indexOf(pre)<0) S.types.push(pre); save(); } }
   if(qs.get("tab")){ S.tab=qs.get("tab"); }
-  var v=parts[0]||(P.view==="catalog"?"catalog":(P.line?"plan":"book")), html;
+  var v=parts[0]||(P.view==="catalog"?"catalog":(P.line?"plan":"book")), html; CURV=v;
   if(v==="catalog") html=vCatalog(line||"dining"); else if(v==="plan") html=vPlan(); else if(v==="places") html=vPlaces(); else if(v==="venue") html=vVenue(parts[1]); else if(v==="route") html=vRoute(); else if(v==="send") html=vSend(); else if(v==="done") html=vDone(); else html=vBook();
   ROOT.innerHTML='<div class="wrap">'+html+'</div>';
   ROOT.setAttribute("lang",L);
@@ -1124,11 +1217,11 @@ function route(){
 function rerender(keepScroll){ var y=window.scrollY; route(); if(keepScroll) window.scrollTo(0,y); }
 var CUR=location.hash||"";
 function go(h){ if(!EMBED){ location.hash=h; return; } CUR=h; route(); try{ window.scrollTo(0,0) }catch(e){} }
-window.addEventListener("hashchange",function(){ route(); try{ ROOT.scrollIntoView({block:"start"}) }catch(e){ window.scrollTo(0,0) } });
+window.addEventListener("hashchange",function(){ NAV++; route(); try{ ROOT.scrollIntoView({block:"start"}) }catch(e){ window.scrollTo(0,0) } });
 
 /* ---------- events ---------- */
 ROOT.addEventListener("click",function(e){
-  var ln=e.target.closest("a[href^='#/']"); if(ln&&EMBED){ e.preventDefault(); go(ln.getAttribute("href")); return; }
+  var ln=e.target.closest("a[href^='#/']"); if(ln&&EMBED&&!ln.hasAttribute("data-act")){ e.preventDefault(); go(ln.getAttribute("href")); return; }
   var el=e.target.closest("[data-act]"); if(!el||!ROOT.contains(el)||el.tagName==="SELECT") return;
   var a=el.getAttribute("data-act"), v=el.getAttribute("data-v");
   switch(a){
@@ -1146,7 +1239,9 @@ ROOT.addEventListener("click",function(e){
       save(); go("#/places"); return;
     case "add": if(inRoute(v)) removeStop(v); else addStop(v); rerender(true); return;
     case "vtime": pend.time=v; break;
-    case "vadd": addStop(v,pend.time,pend.occ); go("#/route"); return;
+    case "vadd": addStop(v,pend.time,pend.occ,pend.o); go("#/route"); return;
+    case "opt": pend.o=v; break;
+    case "back": e.preventDefault(); if(!EMBED&&NAV>0){ history.back(); } else go(BACK[CURV]||"#/book"); return;
     case "rm": removeStop(v); break;
     case "dock": var dk=document.getElementById("oie-dock"); if(dk) dk.classList.toggle("open"); return;
     case "ask": var it=find(v); window.open(waLink(t("wa_intro").replace(/:$/,"")+" — "+(it?it.n:"")+(S.date?" · "+fmtDate()+" "+(S.start||""):"")+" · "+paxTxt()+(refCode()?" · "+t("lbl_ref")+": "+refCode():"")),"_blank","noopener"); return;
@@ -1164,10 +1259,19 @@ ROOT.addEventListener("change",function(e){
   if(a==="lang"){ L=el.value; S.lang=L; S.langAsked=true; save(); rerender(true); return; }
   if(a==="vocc"){ pend.occ=el.value; rerender(true); return; }
   if(a==="socc"){ S.stops.forEach(function(s){ if(s.id===v) s.occ=el.value; }); save(); rerender(true); return; }
+  if(a==="sopt"){ S.stops.forEach(function(s){ if(s.id===v) s.o=el.value; }); save(); rerender(true); return; }
+  if(a&&a.indexOf("tsl-")===0){ var tv=el.getAttribute("data-vals").split(",")[+el.value];
+    if(a==="tsl-start") S.start=tv;
+    else if(a==="tsl-vtime"){ pend.time=tv; rerender(true); return; }
+    else if(a==="tsl-stime"){ S.stops.forEach(function(s){ if(s.id===v) s.time=tv; }); sortStops(); }
+    save(); rerender(true); return; }
   if(a==="stime"){ S.stops.forEach(function(s){ if(s.id===v) s.time=el.value; }); sortStops(); save(); rerender(true); return; }
   var f=el.getAttribute("data-f"); if(f){ S.cust[f]=el.type==="checkbox"?el.checked:el.value; save(); }
 });
-ROOT.addEventListener("input",function(e){ var f=e.target.getAttribute("data-f"); if(f&&e.target.type!=="checkbox"){ S.cust[f]=e.target.value; save(); } });
+ROOT.addEventListener("input",function(e){
+  var ta=e.target.getAttribute&&e.target.getAttribute("data-act");
+  if(ta&&ta.indexOf("tsl-")===0){ var r=e.target, vals=r.getAttribute("data-vals").split(","), box=r.parentNode.querySelector(".tsl-v"); if(box){ box.textContent=vals[+r.value]; box.classList.remove("empty"); } r.style.setProperty("--pct",(vals.length>1?Math.round(r.value/(vals.length-1)*100):0)+"%"); return; }
+  var f=e.target.getAttribute("data-f"); if(f&&e.target.type!=="checkbox"){ S.cust[f]=e.target.value; save(); } });
 /* Hotel / place of stay: reveal the boutique invitation message as soon as the guest interacts with the field */
 ROOT.addEventListener("focusin",function(e){ if(e.target&&e.target.id==="oie-hotel"){ var b=document.getElementById("oie-invite"); if(b) b.classList.add("show"); } });
 
