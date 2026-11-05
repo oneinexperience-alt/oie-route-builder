@@ -78,6 +78,33 @@ textarea{resize:vertical;min-height:96px}
 <script>
 (function(){
 var Q=new URLSearchParams(location.search), KIND=Q.get("f")==="events"?"events":"trip";
+/* language: ?lang=es shows the form in Spanish (values sent to the concierge stay in English) */
+var LANG=(Q.get("lang")||"").toLowerCase()==="es"?"es":"en", LOC=LANG==="es"?"es-ES":"en-GB";
+if(LANG==="es") document.documentElement.lang="es";
+var ES={"Name":"Nombre","Last name":"Apellidos","Your name":"Tu nombre","Your last name":"Tus apellidos","Your email":"Tu email","Your email address":"Tu dirección de email",
+"Message":"Mensaje","Tell us about your plans":"Cuéntanos tus planes","Event type":"Tipo de evento","Interests":"Intereses",
+"WhatsApp (with country code)":"WhatsApp (con prefijo internacional)","Country of residence":"País de residencia","Start typing…":"Empieza a escribir…",
+"Approximate date":"Fecha aproximada","Travel dates":"Fechas del viaje","My dates are flexible":"Mis fechas son flexibles",
+"Approximate start time":"Hora de inicio aproximada","(optional)":"(opcional)","Destination / city":"Destino / ciudad","Number of guests":"Número de invitados",
+"Approximate budget":"Presupuesto aproximado","(USD, optional)":"(USD, opcional)",
+"I agree to be contacted by One In Experience about this request.":"Acepto que One In Experience me contacte sobre esta solicitud.",
+"Submit":"Enviar","Sending…":"Enviando…","Tap a day on the calendar":"Toca un día en el calendario",
+"Tap your arrival day, then your departure day":"Toca tu día de llegada y después el de salida","· now tap your departure day":"· ahora toca tu día de salida",
+"Slide to choose a time (optional)":"Desliza para elegir una hora (opcional)",
+"Gastronomy":"Gastronomía","Nightlife":"Vida nocturna","Nature":"Naturaleza","Culture":"Cultura","Wellness":"Bienestar","Celebration":"Celebración",
+"Wedding in Peru":"Boda en Perú","Corporate event":"Evento corporativo","A very special occasion":"Una ocasión muy especial","Other / not sure":"Otro / no lo sé",
+"Please complete the fields marked with *, choose the event type, a date and a destination, and accept to be contacted.":"Completa los campos marcados con *, elige el tipo de evento, una fecha y un destino, y acepta que te contactemos.",
+"Please complete the fields marked with *, choose your travel dates, and accept to be contacted.":"Completa los campos marcados con *, elige las fechas de tu viaje y acepta que te contactemos.",
+"Your request is with our team. An advisor will reply with a first proposal within 24 hours, by email or WhatsApp.":"Tu solicitud ya está con nuestro equipo. Un asesor te responderá con una primera propuesta en menos de 24 horas, por email o WhatsApp.",
+"We could not send your request. Please try again or write to us on WhatsApp at +34 603 02 50 78.":"No hemos podido enviar tu solicitud. Inténtalo de nuevo o escríbenos por WhatsApp al +34 603 02 50 78."};
+function tr(x){ if(LANG!=="es") return x; var k=x.trim(); if(!k) return x; var star=""; if(/\*$/.test(k)&&k.length>1){ star="*"; k=k.slice(0,-1); }
+  var o=ES[k]; if(o==null){ var m=k.match(/^Thank you, (.*)$/); if(m) o="Gracias, "+m[1]; else if(/^(Under|Over) \$/.test(k)) o=k.replace(/^Under/,"Menos de").replace(/^Over/,"Más de"); }
+  return o==null?x:x.replace(x.trim(),o+star); }
+function translate(root){ if(LANG!=="es"||!root) return;
+  var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null), n, list=[]; while((n=w.nextNode())) list.push(n);
+  list.forEach(function(t){ var v=tr(t.nodeValue); if(v!==t.nodeValue) t.nodeValue=v; });
+  root.querySelectorAll("[placeholder]").forEach(function(e){ var v=tr(e.getAttribute("placeholder")); if(v!==e.getAttribute("placeholder")) e.setAttribute("placeholder",v); }); }
+if(LANG==="es") new MutationObserver(function(){ translate(document.getElementById("app")); }).observe(document.getElementById("app"),{childList:true,subtree:true,characterData:true});
 if(Q.get("bg")==="none") document.documentElement.style.setProperty("--bg","transparent");
 var COUNTRIES="Argentina,Australia,Austria,Belgium,Bolivia,Brazil,Canada,Chile,China,Colombia,Costa Rica,Czech Republic,Denmark,Dominican Republic,Ecuador,Egypt,Finland,France,Germany,Greece,Guatemala,Hong Kong,India,Indonesia,Ireland,Israel,Italy,Japan,Kuwait,Lebanon,Luxembourg,Mexico,Monaco,Morocco,Netherlands,New Zealand,Norway,Panama,Paraguay,Peru,Philippines,Poland,Portugal,Puerto Rico,Qatar,Russia,Saudi Arabia,Singapore,South Africa,South Korea,Spain,Sweden,Switzerland,Taiwan,Thailand,Turkey,United Arab Emirates,United Kingdom,United States,Uruguay,Venezuela".split(",");
 document.getElementById("countries").innerHTML=COUNTRIES.map(function(c){return '<option value="'+c+'">'}).join("");
@@ -93,15 +120,15 @@ function p2(n){return (n<10?"0":"")+n}
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function iso(d){return d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate())}
 function today(){return iso(new Date())}
-function nice(s){ if(!s) return ""; var a=s.split("-"); var d=new Date(+a[0],a[1]-1,+a[2]); try{return new Intl.DateTimeFormat("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"}).format(d)}catch(e){return s} }
+function nice(s){ if(!s) return ""; var a=s.split("-"); var d=new Date(+a[0],a[1]-1,+a[2]); try{return new Intl.DateTimeFormat(LOC,{weekday:"short",day:"numeric",month:"short",year:"numeric"}).format(d)}catch(e){return s} }
 function chip(act,v,on){return '<button type="button" class="chip'+(on?" on":"")+'" data-act="'+act+'" data-v="'+esc(v)+'">'+esc(v)+'</button>'}
 function calendar(){
   var now=new Date(), base=S.calM?new Date(S.calM+"-01T12:00:00"):now;
   var y=base.getFullYear(), m=base.getMonth(), first=new Date(y,m,1), off=(first.getDay()+6)%7, n=new Date(y,m+1,0).getDate(), t=today();
-  var title=new Intl.DateTimeFormat("en-GB",{month:"long",year:"numeric"}).format(first);
+  var title=new Intl.DateTimeFormat(LOC,{month:"long",year:"numeric"}).format(first);
   var prevOk=(y>now.getFullYear())||(y===now.getFullYear()&&m>now.getMonth());
   var h='<div class="cal"><div class="cal-h"><button type="button" data-act="cal" data-v="-1" '+(prevOk?"":"disabled")+' aria-label="Previous month">‹</button><span>'+title+'</span><button type="button" data-act="cal" data-v="1" aria-label="Next month">›</button></div><div class="cal-g">';
-  ["M","T","W","T","F","S","S"].forEach(function(w){h+='<div class="dw">'+w+'</div>'});
+  (LANG==="es"?["L","M","X","J","V","S","D"]:["M","T","W","T","F","S","S"]).forEach(function(w){h+='<div class="dw">'+w+'</div>'});
   for(var i=0;i<off;i++) h+='<span></span>';
   for(var d=1;d<=n;d++){ var v=y+"-"+p2(m+1)+"-"+p2(d), cls="";
     if(v===S.d1||v===S.d2) cls="on"; else if(KIND==="trip"&&S.d1&&S.d2&&v>S.d1&&v<S.d2) cls="in";
@@ -177,7 +204,7 @@ document.addEventListener("submit",function(e){
   fd.append("guests",String(S.guests)); fd.append("budget",S.budget);
   if(ev){ fd.append("event_type",S.one); fd.append("event_date",S.d1); fd.append("start_time",S.time||""); fd.append("destination",dest.join(", ")); }
   else { fd.append("interests",S.multi.join(", ")); fd.append("arrival",S.d1); fd.append("departure",S.d2||""); }
-  fd.append("summary",lines.join("\n")); fd.append("lang","en"); fd.append("page",document.referrer||location.href);
+  fd.append("summary",lines.join("\n")); fd.append("lang",LANG); fd.append("page",document.referrer||location.href);
   var btn=document.querySelector(".btn"); btn.disabled=true; btn.textContent="Sending…";
   fetch("/forms/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:fd.toString()})
     .then(function(r){ if(!r.ok) throw new Error(r.status); document.getElementById("app").innerHTML='<div class="done"><h2>Thank you, '+esc(S.name)+'</h2><p>Your request is with our team. An advisor will reply with a first proposal within 24 hours, by email or WhatsApp.</p></div>'; try{window.scrollTo(0,0)}catch(x){} })
