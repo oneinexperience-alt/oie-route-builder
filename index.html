@@ -121,6 +121,8 @@ font-family:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;background:v
 #oie-rb .bar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#1b1717;border-top:1px solid var(--line);padding:12px 20px}
 #oie-rb .bar .in{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:14px}
 #oie-rb .bar .btn{width:auto;padding:11px 22px}
+/* keep the "Powered by Netlify" badge (bottom-right, free plan) from covering the button */
+#oie-rb .bar .in{padding-right:220px}
 #oie-rb .hero{border-radius:16px;aspect-ratio:21/7;margin:10px 0 24px;font-size:44px}
 #oie-rb .box2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
 #oie-rb .mini{background:var(--card);border-radius:12px;padding:14px;font-size:14px}
@@ -238,6 +240,8 @@ html.oie-cat-page body{background:#1a1a1a}
 #oie-rb .cards{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
 #oie-rb .bar .in{flex-direction:column;align-items:stretch;gap:8px;text-align:center}
 #oie-rb .bar .btn{width:100%}
+#oie-rb .bar .in{padding-right:0}
+#oie-rb .bar{padding-bottom:64px}
 #oie-rb .stop-c,#oie-rb .warn{margin-left:0}
 }
 @media(max-width:380px){#oie-rb .cards{grid-template-columns:1fr}}
@@ -394,7 +398,7 @@ your_plan:"Your plan",res_time:"Booking time at this venue",res_note:"Subject to
 no_slots:"Not open on the selected day. Ask your concierge for alternatives.",
 view_route:"View route",ask_concierge:"Ask the concierge",how:"How it works",
 how1:"Add the venue to your route",how2:"We write to you on WhatsApp",how3:"We confirm your booking and your benefits",
-box_title:"VIP table only",box_text:"Access to this venue is exclusively through a private VIP table (a 'box', as it is known in Peru): no tickets, no guest lists. Your concierge arranges your arrival, table and service.",
+box_title:"VIP table only",box_text:"Access to this venue is exclusively through a private VIP table: no tickets, no guest lists. Your concierge arranges your arrival, table and service.",
 on_request:"Dates and venue change. Available on request through your concierge.",
 special:"Make it special",special_none:"No special occasion",occ_proposal:"Marriage proposal",occ_birthday:"Birthday",occ_anniv:"Anniversary",occ_bachelor:"Bachelor / bachelorette party",occ_date:"Special date",occ_other:"Other",
 fee_note:"Your concierge will arrange the details with you.",update_stop:"Update my route",
@@ -439,8 +443,8 @@ see_places:"Ver lugares y experiencias",see_plan:"Ver el plan que te proponemos"
 person:"persona",people:"personas",
 p2_title:"Elige dónde",change_filter:"Cambiar filtro",tab_all:"Todo",tab_rest:"Restaurantes",tab_bars:"Bares",tab_exp:"Experiencias",
 price_level:"Nivel de precio",rest_h:"Restaurantes",cat_dining:"Restaurantes asociados",cat_night:"Bares y clubs",cat_n_rest:"restaurantes",cat_n_venues:"bares y clubs",rest_sub:"Locales con convenio One In Dining",bars_h:"Bares",bars_sub:"Locales con convenio One In Nightlife",
-clubs_h:"Discotecas y mesas VIP",clubs_sub:"Acceso con box o mesa VIP privada",exp_h:"Experiencias",exp_sub:"One In Signature",
-add:"+ Añadir a mi ruta",added:"✓ En mi ruta",view:"Ver",book_box:"+ Reservar box / mesa VIP",
+clubs_h:"Discotecas y mesas VIP",clubs_sub:"Acceso con mesa VIP privada",exp_h:"Experiencias",exp_sub:"One In Signature",
+add:"+ Añadir a mi ruta",added:"✓ En mi ruta",view:"Ver",book_box:"+ Reservar mesa VIP",
 none_found:"No hay locales con convenio abiertos a esta hora. Prueba otra hora u otro día, o consulta al concierge.",
 route_n:"Mi ruta: {n} lugares añadidos",route_1:"Mi ruta: 1 lugar añadido",continue_route:"Continuar con mi ruta",
 back_places:"‹ Volver a lugares con convenio",partner:"OIE pass",about:"Sobre el local",addr:"Dirección",hrs:"Horario",address_hours:"Dirección y horario",
@@ -450,7 +454,7 @@ your_plan:"Tu plan",res_time:"Hora de reserva en este local",res_note:"Sujeto a 
 no_slots:"No abre el día elegido. Consulta alternativas con tu concierge.",
 view_route:"Ver ruta",ask_concierge:"Consultar con el concierge",how:"Cómo funciona",
 how1:"Añade el local a tu ruta",how2:"Te escribimos por WhatsApp",how3:"Confirmamos tu reserva y tus beneficios",
-box_title:"Solo box o mesa VIP",box_text:"El acceso a este local es exclusivamente con box o mesa VIP privada: sin entradas ni listas. Tu concierge organiza tu llegada, tu mesa y el servicio.",
+box_title:"Solo mesa VIP",box_text:"El acceso a este local es exclusivamente con mesa VIP privada: sin entradas ni listas. Tu concierge organiza tu llegada, tu mesa y el servicio.",
 on_request:"Las fechas y el local cambian. Disponible bajo consulta con tu concierge.",
 special:"Ocasión especial",special_none:"Sin ocasión especial",occ_proposal:"Pedida de mano",occ_birthday:"Cumpleaños",occ_anniv:"Aniversario",occ_bachelor:"Despedida de soltero/a",occ_date:"Fecha especial",occ_other:"Otra",
 fee_note:"Tu concierge coordinará los detalles contigo.",update_stop:"Actualizar mi ruta",
@@ -458,7 +462,7 @@ p4_title:"Tu plan de hoy",recs:"Recomendado para ti",myroute_today:"Mi ruta de h
 route_empty:"Tu ruta está vacía. Añade un restaurante, un bar o una experiencia.",remove:"Quitar",
 warn_closed:"Cerrado a esta hora",warn_overlap:"Se solapa con la siguiente parada",
 send:"Enviar mi ruta al concierge",send_note:"Te escribimos por WhatsApp en menos de 2 horas para confirmar y hacer realidad tu plan.",add_more:"+ Añadir más lugares",
-review_title:"Revisar y enviar",breakdown:"Tu ruta, en detalle",l_res:"Reserva",l_special:"Ocasión especial",l_box:"Box / mesa VIP",l_exp:"Experiencia",
+review_title:"Revisar y enviar",breakdown:"Tu ruta, en detalle",l_res:"Reserva",l_special:"Ocasión especial",l_box:"Mesa VIP",l_exp:"Experiencia",
 tbc:"Te lo cotiza tu concierge",total:"Total",details:"Tus datos",f_name:"Nombre completo",f_email:"Email",f_wa:"WhatsApp (con prefijo del país)",f_country:"País de residencia",
 f_hotel:"Hotel / Lugar de estadía",f_hotel_ph:"Nombre del hotel o dirección en Lima",
 invite_eyebrow:"Una invitación de ONE IN EXPERIENCE",
@@ -472,9 +476,9 @@ done_pay:"Para asegurar los servicios de pago, completa el pago aquí abajo. Tu 
 done_pay_later:"Tu concierge confirmará la disponibilidad y te enviará un enlace de pago seguro por WhatsApp.",
 pay_now:"Pagar",open_wa:"Abrir WhatsApp",new_route:"Planear otra noche",
 lang_suggest:"¿Ver esta página en {x}?",yes:"Sí",no:"No, gracias",
-warn_box:"Para más de 10 personas puede hacer falta un segundo box; tu concierge lo confirmará.",
+warn_box:"Para más de 10 personas puede hacer falta una segunda mesa; tu concierge lo confirmará.",
 wa_fallback:"Si WhatsApp no se abrió, copia este mensaje y envíalo por WhatsApp al {x}.",
-tag_box:"BOX / MESA VIP",
+tag_box:"MESA VIP",
 wa_intro:"Hola One In Experience, quiero reservar esta ruta:",lbl_date:"Día",lbl_start:"Inicio",lbl_types:"Plan",lbl_mood:"Ambiente",lbl_guests:"Personas",lbl_stops:"Ruta",lbl_ref:"Código de afiliado",lbl_hotel:"Hotel",lbl_name:"Nombre",lbl_country:"País",lbl_notes:"Notas",lbl_email:"Email"
 },
 fr:{
@@ -506,7 +510,7 @@ your_plan:"Votre programme",res_time:"Heure de réservation",res_note:"Sous rés
 no_slots:"Fermé le jour choisi. Demandez une alternative à votre concierge.",
 view_route:"Voir l'itinéraire",ask_concierge:"Contacter le concierge",how:"Comment ça marche",
 how1:"Ajoutez l'adresse à votre itinéraire",how2:"Nous vous écrivons sur WhatsApp",how3:"Nous confirmons votre réservation et vos avantages",
-box_title:"Table VIP uniquement",box_text:"L'accès à ce lieu se fait exclusivement avec une table VIP privée (un « box », comme on dit au Pérou) : ni billets, ni listes. Votre concierge organise votre arrivée, votre table et le service.",
+box_title:"Table VIP uniquement",box_text:"L'accès à ce lieu se fait exclusivement avec une table VIP privée : ni billets, ni listes. Votre concierge organise votre arrivée, votre table et le service.",
 on_request:"Dates et lieu variables. Disponible sur demande auprès de votre concierge.",
 special:"Une occasion spéciale",special_none:"Pas d'occasion particulière",occ_proposal:"Demande en mariage",occ_birthday:"Anniversaire",occ_anniv:"Anniversaire de couple",occ_bachelor:"Enterrement de vie de garçon / jeune fille",occ_date:"Date spéciale",occ_other:"Autre",
 fee_note:"Votre concierge organisera les détails avec vous.",update_stop:"Mettre à jour",
@@ -562,7 +566,7 @@ your_plan:"Ihr Plan",res_time:"Reservierungszeit in diesem Lokal",res_note:"Vorb
 no_slots:"Am gewählten Tag geschlossen. Fragen Sie Ihren Concierge nach Alternativen.",
 view_route:"Route ansehen",ask_concierge:"Concierge fragen",how:"So funktioniert es",
 how1:"Fügen Sie das Lokal Ihrer Route hinzu",how2:"Wir schreiben Ihnen auf WhatsApp",how3:"Wir bestätigen Reservierung und Vorteile",
-box_title:"Nur VIP-Tisch",box_text:"Der Zutritt zu diesem Lokal erfolgt ausschließlich über einen privaten VIP-Tisch (in Peru „Box“ genannt): keine Tickets, keine Gästelisten. Ihr Concierge organisiert Ankunft, Tisch und Service.",
+box_title:"Nur VIP-Tisch",box_text:"Der Zutritt zu diesem Lokal erfolgt ausschließlich über einen privaten VIP-Tisch: keine Tickets, keine Gästelisten. Ihr Concierge organisiert Ankunft, Tisch und Service.",
 on_request:"Termine und Ort wechseln. Auf Anfrage über Ihren Concierge.",
 special:"Ein besonderer Anlass",special_none:"Kein besonderer Anlass",occ_proposal:"Heiratsantrag",occ_birthday:"Geburtstag",occ_anniv:"Jahrestag",occ_bachelor:"Junggesellenabschied",occ_date:"Besonderes Datum",occ_other:"Anderes",
 fee_note:"Ihr Concierge stimmt die Details mit Ihnen ab.",update_stop:"Route aktualisieren",
@@ -669,7 +673,7 @@ your_plan:"您的计划",res_time:"本场所预订时间",res_note:"以场所确
 no_slots:"所选日期不营业。请向礼宾咨询其他选择。",
 view_route:"查看路线",ask_concierge:"咨询礼宾",how:"预订流程",
 how1:"将场所加入路线",how2:"我们通过 WhatsApp 联系您",how3:"确认预订与礼遇",
-box_title:"仅限 VIP 卡座",box_text:"本场所仅接受私人 VIP 卡座（秘鲁称为 box）入场：无门票、无名单。礼宾将为您安排抵达、座位与服务。",
+box_title:"仅限 VIP 卡座",box_text:"本场所仅接受私人 VIP 卡座入场：无门票、无名单。礼宾将为您安排抵达、座位与服务。",
 on_request:"日期和地点会变动，可通过礼宾咨询。",
 special:"特别时刻",special_none:"无特别场合",occ_proposal:"求婚",occ_birthday:"生日",occ_anniv:"纪念日",occ_bachelor:"单身派对",occ_date:"特别日子",occ_other:"其他",
 fee_note:"您的礼宾将与您确认细节。",update_stop:"更新我的路线",
@@ -724,11 +728,11 @@ opt_gl:"Apply for a guest list",opt_gl_tag:"Girls only",opt_gl_d:"Women only. Fr
 book_opts:"+ Booking options",apply_gl:"+ Apply for the guest list",l_gl:"Guest list application · girls only",tag_res:"RESERVATION",tag_gl:"GUEST LIST",
 f_ig:"Leave us your IG (optional)",f_ig_ph:"@yourinstagram",lbl_ig:"Instagram",slide_time:"Slide to choose a time",
 box_title:"How to book",box_text:"Reserve through your concierge, book a private VIP table or, for women only, apply for the guest list.",gl_note:"The guest list is for women only. Your concierge confirms every name."},
-es:{back:"Volver",opt_title:"Elige cómo reservar",opt_res:"Reserva a través de nosotros",opt_res_d:"Sin coste. Tu concierge confirma tu mesa y tu entrada.",opt_vip:"Box / mesa VIP",
+es:{back:"Volver",opt_title:"Elige cómo reservar",opt_res:"Reserva a través de nosotros",opt_res_d:"Sin coste. Tu concierge confirma tu mesa y tu entrada.",opt_vip:"Mesa VIP",
 opt_gl:"Apply for a guest list",opt_gl_tag:"Solo chicas",opt_gl_d:"Solo para chicas. Entrada gratuita sujeta a aprobación del local. Déjanos tus datos y te confirmamos por WhatsApp.",
 book_opts:"+ Opciones de reserva",apply_gl:"+ Apply for the guest list",l_gl:"Solicitud de guest list · solo chicas",tag_res:"RESERVA",tag_gl:"GUEST LIST",
 f_ig:"Déjanos tu IG (opcional)",f_ig_ph:"@tuinstagram",lbl_ig:"Instagram",slide_time:"Desliza para elegir la hora",
-box_title:"Cómo reservar",box_text:"Reserva a través de tu concierge, reserva un box o mesa VIP privada o, solo para chicas, solicita entrar en la guest list.",gl_note:"La guest list es solo para chicas. Tu concierge confirma cada nombre."},
+box_title:"Cómo reservar",box_text:"Reserva a través de tu concierge, reserva una mesa VIP privada o, solo para chicas, solicita entrar en la guest list.",gl_note:"La guest list es solo para chicas. Tu concierge confirma cada nombre."},
 fr:{back:"Retour",opt_title:"Choisissez comment réserver",opt_res:"Réserver avec nous",opt_res_d:"Gratuit. Votre concierge confirme votre table et votre entrée.",opt_vip:"Table VIP",
 opt_gl:"Apply for a guest list",opt_gl_tag:"Filles uniquement",opt_gl_d:"Réservé aux femmes. Entrée gratuite, sous réserve d'acceptation du lieu. Laissez vos coordonnées, nous confirmons sur WhatsApp.",
 book_opts:"+ Options de réservation",apply_gl:"+ Apply for the guest list",l_gl:"Demande de guest list · filles uniquement",tag_res:"RÉSERVATION",tag_gl:"GUEST LIST",
@@ -836,6 +840,8 @@ var MOODS=["quiet","lively","romantic","friends","corporate"];
 var MUS=["alt","comercial","urbano","house","rock","latino","variado"];
 var OCC=["proposal","birthday","anniv","bachelor","date","other"];
 var TIMES=["18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00","22:30","23:00","23:30","00:00"];
+var TIMES_DAY=["12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30"].concat(TIMES); // dining: lunch + dinner
+function startTimes(){ return S.line==="nightlife"?TIMES:TIMES_DAY; }
 function lvl(n){ return "$$$$".slice(0,n); }
 function lineName(item){ var k=kindOf(item); return k==="exp"?"ONE IN SIGNATURE":(item.l==="d"?"ONE IN DINING":"ONE IN NIGHTLIFE"); }
 function lineShort(item){ var k=kindOf(item); return k==="exp"?"SIGNATURE":(item.l==="d"?"DINING":"NIGHTLIFE"); }
@@ -868,7 +874,8 @@ function moods(v){
 }
 function musicOk(item){
   var k=kindOf(item); if(!S.music.length||(k!=="bar"&&k!=="club")) return true;
-  return (item.mu||[]).some(function(x){ return S.music.indexOf(x)>-1; });
+  if(!item.mu||!item.mu.length) return true; // venues without music info (most bars) are never hidden by the music filter
+  return item.mu.some(function(x){ return S.music.indexOf(x)>-1; });
 }
 function wants(k){
   var T=S.types; if(!T.length) return true;
@@ -1009,7 +1016,7 @@ function vPlan(){
     surpriseCta()+
     '<div class="label">'+esc(t("plan_type"))+'</div><div class="chips">'+TYPES.map(function(x){return chip("type",x,S.types.indexOf(x)>-1,t("t_"+x))}).join("")+'</div>'+
     '<div class="label">'+esc(t("day"))+'</div>'+calendar()+
-    '<div class="label">'+esc(t("start_time"))+'</div>'+tsl("tsl-start","",TIMES,S.start)+
+    '<div class="label">'+esc(t("start_time"))+'</div>'+tsl("tsl-start","",startTimes(),S.start)+
     '<div class="label">'+esc(t("mood"))+'</div><div class="chips">'+MOODS.map(function(x){return chip("mood",x,S.mood===x,t("m_"+x))}).join("")+'</div>'+
     (S.line!=="dining"?musicChips():'')+
     '<div class="label">'+esc(t("guests"))+'</div><div class="stepper"><button data-act="pax" data-v="-1" aria-label="-">−</button><span>'+S.pax+'</span><button data-act="pax" data-v="1" aria-label="+">+</button></div>'+
@@ -1109,7 +1116,15 @@ function stopRow(s,w){
 }
 function vRoute(){
   var recs=[], d=dow();
-  var cand=sorted(X.filter(function(x){return !inRoute(x.id)&&visible(x)})).slice(0,2)
+  var hasRest=S.stops.some(function(s){return s.k==="rest"});
+  if(hasRest){
+    /* after dinner: suggest nightlife (bars & clubs open after the last stop), not more restaurants */
+    var endM=0; S.stops.forEach(function(s){ var e=tm(s.time)+(find(s.id)&&find(s.id).dur||dur(s.k)); if(e>endM) endM=e; });
+    var nOk=function(v){ return !inRoute(v.id)&&!v.req&&musicOk(v)&&(!S.levels.length||S.levels.indexOf(v.lv)>-1)&&(d==null||slots(v,d,endM).length>0); };
+    recs=sorted(V.filter(function(v){return kindOf(v)==="bar"&&nOk(v)})).slice(0,2)
+      .concat(sorted(V.filter(function(v){return kindOf(v)==="club"&&nOk(v)})).slice(0,2));
+  }
+  var cand=hasRest?recs:sorted(X.filter(function(x){return !inRoute(x.id)&&visible(x)})).slice(0,2)
     .concat(sorted(V.filter(function(v){return kindOf(v)==="rest"&&!inRoute(v.id)&&visible(v)})).slice(0,2))
     .concat(sorted(V.filter(function(v){return (kindOf(v)==="bar"||kindOf(v)==="club")&&!inRoute(v.id)&&!v.req&&visible(v)})).slice(0,2));
   recs=cand;
